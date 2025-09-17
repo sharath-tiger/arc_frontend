@@ -19,9 +19,7 @@ function ResultsPage() {
   const [resultsForm, setResultsForm] = useState<ResultsFormData>({
     modelledInterestRate: '',
     amountSavedPerMonth: '',
-    paybackPeriod: '',
-    escrow: '',
-    occupancyType: ''
+    paybackPeriod: ''
   });
 
   // If no form data, redirect back to form

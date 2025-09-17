@@ -67,10 +67,7 @@ const getLoanOptions = (): LoanOption[] => {
       savingsPerMonth: 245,
       paybackPeriod: 14,
       insurance: 285,
-      revisedInterestRate: 10;
-  revisedTenure: number;
-  occupancyType: string;
-  escrow: string;
+      revisedInterestRate: 10
     },
     {
       loanType: 'Conventional 15-Year Fixed',

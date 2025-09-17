@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { ArrowLeft, TrendingUp, DollarSign, Calendar, Home } from 'lucide-react';
+import { ArrowLeft, TrendingUp, DollarSign, Calendar, Home, Users } from 'lucide-react';
 import { LoanFormData } from './LoanForm';
 
 interface ResultsFormData {
@@ -19,9 +19,7 @@ function ResultsPage() {
   const [resultsForm, setResultsForm] = useState<ResultsFormData>({
     modelledInterestRate: '',
     amountSavedPerMonth: '',
-    paybackPeriod: '',
-    escrow: '',
-    occupancyType: ''
+    paybackPeriod: ''
   });
 
   // If no form data, redirect back to form
@@ -68,36 +66,12 @@ function ResultsPage() {
   // Mock KPI data based on form inputs
   const kpiData = [
     {
-      title: 'Estimated Rate',
-      value: '3.75%',
+      title: 'Number of Mortgage Loans',
+      value: '5000',
       change: '-0.25%',
-      icon: TrendingUp,
+      icon: Users,
       color: 'text-green-600',
       bgColor: 'bg-green-50'
-    },
-    {
-      title: 'Monthly Payment',
-      value: '$2,450',
-      change: '+$150',
-      icon: DollarSign,
-      color: 'text-blue-600',
-      bgColor: 'bg-blue-50'
-    },
-    {
-      title: 'Loan Term',
-      value: '30 Years',
-      change: 'Fixed',
-      icon: Calendar,
-      color: 'text-purple-600',
-      bgColor: 'bg-purple-50'
-    },
-    {
-      title: 'Property Value',
-      value: '$485K',
-      change: '+2.1%',
-      icon: Home,
-      color: 'text-indigo-600',
-      bgColor: 'bg-indigo-50'
     }
   ];
 
@@ -124,7 +98,7 @@ function ResultsPage() {
 
           {/* Application Summary */}
           <div className="bg-white rounded-2xl shadow-lg p-6 mb-8">
-            <h2 className="text-xl font-semibold text-gray-900 mb-4">Application Summary</h2>
+            <h2 className="text-xl font-semibold text-gray-900 mb-4">Loan Details</h2>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
               <div>
                 <span className="text-gray-500">Product Type:</span>
@@ -138,10 +112,7 @@ function ResultsPage() {
                 <span className="text-gray-500">Location:</span>
                 <p className="font-medium text-gray-900">{formData.state}, {formData.zipCode}</p>
               </div>
-              <div>
-                <span className="text-gray-500">Customer ID:</span>
-                <p className="font-medium text-gray-900">{formData.customerId}</p>
-              </div>
+            
             </div>
           </div>
 
@@ -153,9 +124,7 @@ function ResultsPage() {
                   <div className={`p-3 rounded-lg ${kpi.bgColor}`}>
                     <kpi.icon className={`w-6 h-6 ${kpi.color}`} />
                   </div>
-                  <span className={`text-sm font-medium ${kpi.color}`}>
-                    {kpi.change}
-                  </span>
+                
                 </div>
                 <h3 className="text-sm font-medium text-gray-500 mb-1">{kpi.title}</h3>
                 <p className="text-2xl font-bold text-gray-900">{kpi.value}</p>
@@ -175,7 +144,7 @@ function ResultsPage() {
                 {/* Modelled Interest Rate */}
                 <div className="space-y-2">
                   <label className="block text-sm font-semibold text-gray-700">
-                    Enter Modelled Interest Rate (bps) *
+                    Revised Interest Rate (bps) *
                   </label>
                   <input
                     type="number"
@@ -190,7 +159,7 @@ function ResultsPage() {
                 {/* Amount Saved Per Month */}
                 <div className="space-y-2">
                   <label className="block text-sm font-semibold text-gray-700">
-                    Amount Saved Per Month *
+                    Minimum Monthly Savings *
                   </label>
                   <input
                     type="number"
@@ -205,7 +174,7 @@ function ResultsPage() {
                 {/* Payback Period */}
                 <div className="space-y-2">
                   <label className="block text-sm font-semibold text-gray-700">
-                    Payback Period (No. of Months) *
+                    Minimum Payback Period (No. of Months) *
                   </label>
                   <input
                     type="number"
@@ -220,7 +189,7 @@ function ResultsPage() {
                 {/* Escrow */}
                 <div className="space-y-2">
                   <label className="block text-sm font-semibold text-gray-700">
-                    Escrow *
+                    Refinance - Escrow *
                   </label>
                   <select
                     value={resultsForm.escrow}
@@ -236,7 +205,7 @@ function ResultsPage() {
                 {/* Occupancy Type */}
                 <div className="space-y-2">
                   <label className="block text-sm font-semibold text-gray-700">
-                    Occupancy Type *
+                    Refinance - Occupancy Type *
                   </label>
                   <select
                     value={resultsForm.occupancyType}

@@ -18,8 +18,6 @@ export interface LoanFormData {
   propertyType: string;
   escrow: string;
   occupancyType: string;
-  customerId: string;
-  loanId: string;
   zipCode: string;
 }
 
@@ -31,8 +29,6 @@ function LoanForm() {
     propertyType: '',
     escrow: '',
     occupancyType: '',
-    customerId: '',
-    loanId: '',
     zipCode: ''
   });
 
@@ -74,17 +70,17 @@ function LoanForm() {
           <div className="text-center mb-8">
             <div className="flex justify-center items-center mb-4">
               <Building2 className="w-12 h-12 text-indigo-600 mr-3" />
-              <h1 className="text-4xl font-bold text-gray-900">Loan Application</h1>
+              <h1 className="text-4xl font-bold text-gray-900">Mortgage Loan </h1>
             </div>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              Complete the form below to begin your loan application process
+              Complete the form below to begin your loan refinance application process
             </p>
           </div>
 
           {/* Form */}
           <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
             <div className="bg-gradient-to-r from-indigo-600 to-purple-600 p-6">
-              <h2 className="text-2xl font-semibold text-white">Application Details</h2>
+              <h2 className="text-2xl font-semibold text-white">Mortgage Loan </h2>
               <p className="text-indigo-100 mt-1">Please fill in all required information</p>
             </div>
 
@@ -103,6 +99,10 @@ function LoanForm() {
                     <option value="">Select Product Type</option>
                     <option value="c30">C30</option>
                     <option value="c20">C20</option>
+                    <option value="p20">P20</option>
+                    <option value="balloon">Balloon</option>
+                    <option value="c5/6arm">C 5/6 ARM</option>
+                    
                   </select>
                 </div>
 
@@ -168,35 +168,8 @@ function LoanForm() {
                     <option value="">Select Occupancy Type</option>
                     <option value="primary">Primary</option>
                     <option value="secondary">Secondary</option>
+                     <option value="investment">Investment</option>
                   </select>
-                </div>
-
-                {/* Customer ID */}
-                <div className="space-y-2">
-                  <label className="block text-sm font-semibold text-gray-700">
-                    Customer ID *
-                  </label>
-                  <input
-                    type="text"
-                    value={formData.customerId}
-                    onChange={handleInputChange('customerId')}
-                    placeholder="Enter Customer ID"
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-colors duration-200"
-                  />
-                </div>
-
-                {/* Loan ID */}
-                <div className="space-y-2">
-                  <label className="block text-sm font-semibold text-gray-700">
-                    Loan ID *
-                  </label>
-                  <input
-                    type="text"
-                    value={formData.loanId}
-                    onChange={handleInputChange('loanId')}
-                    placeholder="Enter Loan ID"
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-colors duration-200"
-                  />
                 </div>
 
                 {/* Zip Code */}
@@ -230,7 +203,7 @@ function LoanForm() {
           {/* Additional Info */}
           <div className="mt-8 text-center">
             <p className="text-sm text-gray-500">
-              All fields marked with * are required. Your information is secure and protected.
+              Fields marked with * are required. Your information is secure and protected.
             </p>
           </div>
         </div>

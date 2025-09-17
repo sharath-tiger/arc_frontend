@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, Link } from 'react-router-dom';
 import { ArrowLeft, Search, ChevronLeft, ChevronRight } from 'lucide-react';
 import { LoanFormData } from './LoanForm';
 
@@ -187,7 +187,14 @@ function LoanTablePage() {
                 <tbody className="bg-white divide-y divide-gray-200">
                   {currentRecords.map((record, index) => (
                     <tr key={record.loanId} className={index % 2 === 0 ? 'bg-white' : 'bg-gray-50'}>
-                      <td className="px-4 py-4 whitespace-nowrap text-sm font-medium text-indigo-600">{record.loanId}</td>
+                      <td className="px-4 py-4 whitespace-nowrap text-sm font-medium">
+                        <Link 
+                          to={`/loan-details/${record.loanId}`}
+                          className="text-indigo-600 hover:text-indigo-800 hover:underline transition-colors duration-200"
+                        >
+                          {record.loanId}
+                        </Link>
+                      </td>
                       <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">{record.productType}</td>
                       <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">{record.originationDate}</td>
                       <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">{record.loanTerm} years</td>

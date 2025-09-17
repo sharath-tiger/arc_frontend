@@ -67,7 +67,7 @@ function ResultsPage() {
   const kpiData = [
     {
       title: 'Number of Mortgage Loans',
-      value: '3.75%',
+      value: '5000',
       change: '-0.25%',
       icon: TrendingUp,
       color: 'text-green-600',

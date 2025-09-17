@@ -66,7 +66,11 @@ const getLoanOptions = (): LoanOption[] => {
       closingCost: 3500,
       savingsPerMonth: 245,
       paybackPeriod: 14,
-      insurance: 285
+      insurance: 285,
+      revisedInterestRate: 10;
+  revisedTenure: number;
+  occupancyType: string;
+  escrow: string;
     },
     {
       loanType: 'Conventional 15-Year Fixed',

@@ -18,8 +18,6 @@ export interface LoanFormData {
   propertyType: string;
   escrow: string;
   occupancyType: string;
-  customerId: string;
-  loanId: string;
   zipCode: string;
 }
 
@@ -230,7 +228,7 @@ function LoanForm() {
           {/* Additional Info */}
           <div className="mt-8 text-center">
             <p className="text-sm text-gray-500">
-              All fields marked with * are required. Your information is secure and protected.
+              Fields marked with * are required. Your information is secure and protected.
             </p>
           </div>
         </div>

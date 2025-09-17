@@ -112,10 +112,7 @@ function ResultsPage() {
                 <span className="text-gray-500">Location:</span>
                 <p className="font-medium text-gray-900">{formData.state}, {formData.zipCode}</p>
               </div>
-              <div>
-                <span className="text-gray-500">Customer ID:</span>
-                <p className="font-medium text-gray-900">{formData.customerId}</p>
-              </div>
+            
             </div>
           </div>
 

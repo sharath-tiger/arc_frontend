@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { ArrowLeft, TrendingUp, DollarSign, Calendar, Home } from 'lucide-react';
+import { ArrowLeft, TrendingUp, DollarSign, Calendar, Home, Users } from 'lucide-react';
 import { LoanFormData } from './LoanForm';
 
 interface ResultsFormData {
@@ -69,7 +69,7 @@ function ResultsPage() {
       title: 'Number of Mortgage Loans',
       value: '5000',
       change: '-0.25%',
-      icon: TrendingUp,
+      icon: Users,
       color: 'text-green-600',
       bgColor: 'bg-green-50'
     }

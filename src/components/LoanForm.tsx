@@ -168,6 +168,7 @@ function LoanForm() {
                     <option value="">Select Occupancy Type</option>
                     <option value="primary">Primary</option>
                     <option value="secondary">Secondary</option>
+                     <option value="investment">Investment</option>
                   </select>
                 </div>
 

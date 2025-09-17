@@ -72,30 +72,6 @@ function ResultsPage() {
       icon: TrendingUp,
       color: 'text-green-600',
       bgColor: 'bg-green-50'
-    },
-    {
-      title: 'Monthly Payment',
-      value: '$2,450',
-      change: '+$150',
-      icon: DollarSign,
-      color: 'text-blue-600',
-      bgColor: 'bg-blue-50'
-    },
-    {
-      title: 'Loan Term',
-      value: '30 Years',
-      change: 'Fixed',
-      icon: Calendar,
-      color: 'text-purple-600',
-      bgColor: 'bg-purple-50'
-    },
-    {
-      title: 'Property Value',
-      value: '$485K',
-      change: '+2.1%',
-      icon: Home,
-      color: 'text-indigo-600',
-      bgColor: 'bg-indigo-50'
     }
   ];
 

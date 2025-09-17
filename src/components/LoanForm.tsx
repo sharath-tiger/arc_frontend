@@ -73,7 +73,7 @@ function LoanForm() {
               <h1 className="text-4xl font-bold text-gray-900">Mortgage Loan </h1>
             </div>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              Complete the form below to begin your loan application process
+              Complete the form below to begin your loan refinance application process
             </p>
           </div>
 

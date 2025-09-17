@@ -189,7 +189,7 @@ function ResultsPage() {
                 {/* Escrow */}
                 <div className="space-y-2">
                   <label className="block text-sm font-semibold text-gray-700">
-                    Escrow *
+                    Refinance - Escrow *
                   </label>
                   <select
                     value={resultsForm.escrow}
@@ -205,7 +205,7 @@ function ResultsPage() {
                 {/* Occupancy Type */}
                 <div className="space-y-2">
                   <label className="block text-sm font-semibold text-gray-700">
-                    Occupancy Type *
+                    Refinance - Occupancy Type *
                   </label>
                   <select
                     value={resultsForm.occupancyType}

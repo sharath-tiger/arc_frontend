@@ -66,7 +66,7 @@ function ResultsPage() {
   // Mock KPI data based on form inputs
   const kpiData = [
     {
-      title: 'Estimated Rate',
+      title: 'Number of Mortgage Loans',
       value: '3.75%',
       change: '-0.25%',
       icon: TrendingUp,

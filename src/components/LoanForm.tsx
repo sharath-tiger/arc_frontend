@@ -173,34 +173,6 @@ function LoanForm() {
                   </select>
                 </div>
 
-                {/* Customer ID */}
-                <div className="space-y-2">
-                  <label className="block text-sm font-semibold text-gray-700">
-                    Customer ID *
-                  </label>
-                  <input
-                    type="text"
-                    value={formData.customerId}
-                    onChange={handleInputChange('customerId')}
-                    placeholder="Enter Customer ID"
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-colors duration-200"
-                  />
-                </div>
-
-                {/* Loan ID */}
-                <div className="space-y-2">
-                  <label className="block text-sm font-semibold text-gray-700">
-                    Loan ID *
-                  </label>
-                  <input
-                    type="text"
-                    value={formData.loanId}
-                    onChange={handleInputChange('loanId')}
-                    placeholder="Enter Loan ID"
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-colors duration-200"
-                  />
-                </div>
-
                 {/* Zip Code */}
                 <div className="space-y-2">
                   <label className="block text-sm font-semibold text-gray-700">

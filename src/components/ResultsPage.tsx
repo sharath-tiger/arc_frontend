@@ -175,7 +175,7 @@ function ResultsPage() {
                 {/* Modelled Interest Rate */}
                 <div className="space-y-2">
                   <label className="block text-sm font-semibold text-gray-700">
-                    Enter Modelled Interest Rate (bps) *
+                    Revised Interest Rate (bps) *
                   </label>
                   <input
                     type="number"

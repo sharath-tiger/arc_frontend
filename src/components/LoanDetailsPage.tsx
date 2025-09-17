@@ -27,6 +27,10 @@ interface LoanOption {
   savingsPerMonth: number;
   paybackPeriod: number;
   insurance: number;
+  revisedInterestRate: number;
+  revisedTenure: number;
+  occupancyType: string;
+  escrow: string;
 }
 
 // Mock function to get loan details by ID
@@ -327,6 +331,18 @@ function LoanDetailsPage() {
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                         {option.insurance > 0 ? formatCurrency(option.insurance) : 'N/A'}
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                        {option.revisedInterestRate}%
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                        {option.revisedTenure} years
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                        {option.occupancyType}
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                        {option.escrow}
                       </td>
                     </tr>
                   ))}

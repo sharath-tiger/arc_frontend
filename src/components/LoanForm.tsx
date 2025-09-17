@@ -80,7 +80,7 @@ function LoanForm() {
           {/* Form */}
           <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
             <div className="bg-gradient-to-r from-indigo-600 to-purple-600 p-6">
-              <h2 className="text-2xl font-semibold text-white">Application Details</h2>
+              <h2 className="text-2xl font-semibold text-white">Mortgage Loan </h2>
               <p className="text-indigo-100 mt-1">Please fill in all required information</p>
             </div>
 

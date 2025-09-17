@@ -190,7 +190,7 @@ function ResultsPage() {
                 {/* Amount Saved Per Month */}
                 <div className="space-y-2">
                   <label className="block text-sm font-semibold text-gray-700">
-                    Amount Saved Per Month *
+                    Minimum Monthly Savings *
                   </label>
                   <input
                     type="number"
@@ -205,7 +205,7 @@ function ResultsPage() {
                 {/* Payback Period */}
                 <div className="space-y-2">
                   <label className="block text-sm font-semibold text-gray-700">
-                    Payback Period (No. of Months) *
+                    Maximum Payback Period (No. of Months) *
                   </label>
                   <input
                     type="number"

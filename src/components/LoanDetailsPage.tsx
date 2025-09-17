@@ -27,10 +27,7 @@ interface LoanOption {
   savingsPerMonth: number;
   paybackPeriod: number;
   insurance: number;
-  revisedInterestRate: number;
-  revisedTenure: number;
-  occupancyType: string;
-  escrow: string;
+ 
 }
 
 // Mock function to get loan details by ID

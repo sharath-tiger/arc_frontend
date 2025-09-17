@@ -4,7 +4,7 @@ import { ArrowLeft, Search, ChevronLeft, ChevronRight } from 'lucide-react';
 import { LoanFormData } from './LoanForm';
 
 interface LoanRecord {
-  loanId: string;
+  loanId: string
   productType: string;
   originationDate: string;
   loanTerm: number;

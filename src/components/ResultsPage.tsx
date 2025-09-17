@@ -203,7 +203,7 @@ function ResultsPage() {
                 {/* Payback Period */}
                 <div className="space-y-2">
                   <label className="block text-sm font-semibold text-gray-700">
-                    Maximum Payback Period (No. of Months) *
+                    Minimum Payback Period (No. of Months) *
                   </label>
                   <input
                     type="number"

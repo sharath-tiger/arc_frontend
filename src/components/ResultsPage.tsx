@@ -127,9 +127,7 @@ function ResultsPage() {
                   <div className={`p-3 rounded-lg ${kpi.bgColor}`}>
                     <kpi.icon className={`w-6 h-6 ${kpi.color}`} />
                   </div>
-                  <span className={`text-sm font-medium ${kpi.color}`}>
-                    {kpi.change}
-                  </span>
+                
                 </div>
                 <h3 className="text-sm font-medium text-gray-500 mb-1">{kpi.title}</h3>
                 <p className="text-2xl font-bold text-gray-900">{kpi.value}</p>

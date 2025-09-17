@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, Link } from 'react-router-dom';
 import { ArrowLeft, Search, ChevronLeft, ChevronRight } from 'lucide-react';
 import { LoanFormData } from './LoanForm';
 

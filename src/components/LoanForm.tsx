@@ -101,6 +101,10 @@ function LoanForm() {
                     <option value="">Select Product Type</option>
                     <option value="c30">C30</option>
                     <option value="c20">C20</option>
+                    <option value="p20">P20</option>
+                    <option value="balloon">Balloon</option>
+                    <option value="c5/6arm">C 5/6 ARM</option>
+                    
                   </select>
                 </div>
 

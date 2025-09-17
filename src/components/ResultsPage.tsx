@@ -98,7 +98,7 @@ function ResultsPage() {
 
           {/* Application Summary */}
           <div className="bg-white rounded-2xl shadow-lg p-6 mb-8">
-            <h2 className="text-xl font-semibold text-gray-900 mb-4">Application Summary</h2>
+            <h2 className="text-xl font-semibold text-gray-900 mb-4">Loan Details</h2>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
               <div>
                 <span className="text-gray-500">Product Type:</span>

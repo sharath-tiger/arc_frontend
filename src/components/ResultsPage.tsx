@@ -137,7 +137,7 @@ function ResultsPage() {
           <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
             <div className="bg-gradient-to-r from-indigo-600 to-purple-600 p-6">
               <h2 className="text-2xl font-semibold text-white">Mortgage Engine</h2>
-              {/* <p className="text-indigo-100 mt-1">Fine-tune your loan parameters</p> */}
+              <p className="text-indigo-100 mt-1">Choose any one of the options to filter</p>
             </div>
 
             <form onSubmit={handleSubmit} className="p-8">

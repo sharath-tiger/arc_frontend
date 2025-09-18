@@ -193,7 +193,7 @@ function LoanForm() {
                   type="submit"
                   className="px-8 py-4 bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-semibold rounded-lg hover:from-indigo-700 hover:to-purple-700 focus:ring-4 focus:ring-indigo-200 transform hover:scale-105 transition-all duration-200 shadow-lg"
                 >
-                  Submit
+                  Next
                 </button>
               </div>
             </form>

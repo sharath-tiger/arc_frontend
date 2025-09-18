@@ -138,11 +138,25 @@ function LoanForm() {
                     <option value="single family">Single Family</option>
                   </select>
                 </div>
+                {/* Zip Code */}
+                <div className="space-y-2">
+                  <label className="block text-sm font-semibold text-gray-700">
+                    Zip Code *
+                  </label>
+                  <input
+                    type="text"
+                    value={formData.zipCode}
+                    onChange={handleInputChange('zipCode')}
+                    placeholder="Enter Zip Code"
+                    maxLength={10}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-colors duration-200"
+                  />
+                </div>
 
                 {/* Escrow */}
                 <div className="space-y-2">
                   <label className="block text-sm font-semibold text-gray-700">
-                    Escrow *
+                    Escrow 
                   </label>
                   <select
                     value={formData.escrow}
@@ -158,7 +172,7 @@ function LoanForm() {
                 {/* Occupancy Type */}
                 <div className="space-y-2">
                   <label className="block text-sm font-semibold text-gray-700">
-                    Occupancy Type *
+                    Occupancy Type 
                   </label>
                   <select
                     value={formData.occupancyType}
@@ -172,20 +186,7 @@ function LoanForm() {
                   </select>
                 </div>
 
-                {/* Zip Code */}
-                <div className="space-y-2">
-                  <label className="block text-sm font-semibold text-gray-700">
-                    Zip Code *
-                  </label>
-                  <input
-                    type="text"
-                    value={formData.zipCode}
-                    onChange={handleInputChange('zipCode')}
-                    placeholder="Enter Zip Code"
-                    maxLength={10}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-colors duration-200"
-                  />
-                </div>
+                
               </div>
 
               {/* Submit Button */}

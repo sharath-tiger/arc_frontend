@@ -148,7 +148,7 @@ function LoanDetailsPage() {
             <div className="flex items-center">
               <Building2 className="w-8 h-8 text-indigo-600 mr-3" />
               <div>
-                <h1 className="text-4xl font-bold text-gray-900">Loan Details</h1>
+                <h1 className="text-4xl font-bold text-gray-900">ARC</h1>
                 <p className="text-lg text-gray-600 mt-1">
                   Comprehensive information for Loan ID: {loanDetail.loanId}
                 </p>

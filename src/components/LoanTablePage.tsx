@@ -158,7 +158,7 @@ function LoanTablePage() {
           {/* Data Table */}
           <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
             <div className="bg-gradient-to-r from-indigo-600 to-purple-600 p-6">
-              <h2 className="text-2xl font-semibold text-white">Loan Data Table</h2>
+              <h2 className="text-2xl font-semibold text-white">Viable Mortgage Loans</h2>
               <p className="text-indigo-100 mt-1">Page {currentPage} of {totalPages}</p>
             </div>
 

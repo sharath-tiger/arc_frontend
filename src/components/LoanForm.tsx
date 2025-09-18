@@ -27,8 +27,6 @@ function LoanForm() {
     productType: '',
     state: '',
     propertyType: '',
-    escrow: '',
-    occupancyType: '',
     zipCode: ''
   });
 

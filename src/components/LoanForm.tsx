@@ -71,7 +71,7 @@ function LoanForm() {
               <h1 className="text-4xl font-bold text-gray-900">ARC </h1>
             </div>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              Automatic Refinance calculator
+          ARC - Automatic refinancing calculator helps identify all viable loans across geographic locations in the Country.
             </p>
           </div>
 

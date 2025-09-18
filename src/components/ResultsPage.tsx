@@ -189,7 +189,7 @@ function ResultsPage() {
                 {/* Escrow */}
                 <div className="space-y-2">
                   <label className="block text-sm font-semibold text-gray-700">
-                    Refinance - Escrow *
+                    Refinance - Escrow 
                   </label>
                   <select
                     value={resultsForm.escrow}
@@ -205,7 +205,7 @@ function ResultsPage() {
                 {/* Occupancy Type */}
                 <div className="space-y-2">
                   <label className="block text-sm font-semibold text-gray-700">
-                    Refinance - Occupancy Type *
+                    Refinance - Occupancy Type 
                   </label>
                   <select
                     value={resultsForm.occupancyType}
@@ -225,7 +225,7 @@ function ResultsPage() {
                   type="submit"
                   className="px-8 py-4 bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-semibold rounded-lg hover:from-indigo-700 hover:to-purple-700 focus:ring-4 focus:ring-indigo-200 transform hover:scale-105 transition-all duration-200 shadow-lg"
                 >
-                  Calculate Optimized Results
+                  View Viable Loans
                 </button>
               </div>
             </form>

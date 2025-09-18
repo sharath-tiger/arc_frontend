@@ -118,9 +118,9 @@ function LoanTablePage() {
               Back to Results
             </button>
             <div>
-              <h1 className="text-4xl font-bold text-gray-900">Loan Portfolio</h1>
+              <h1 className="text-4xl font-bold text-gray-900">ARC</h1>
               <p className="text-lg text-gray-600 mt-1">
-                Comprehensive loan data with advanced filtering and pagination
+                 Automatic Refinance calculator
               </p>
             </div>
           </div>

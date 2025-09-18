@@ -45,15 +45,6 @@ function ResultsPage() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     
-    // Basic validation
-    const requiredFields = Object.entries(resultsForm);
-    const hasEmptyFields = requiredFields.some(([_, value]) => !value.trim());
-    
-    if (hasEmptyFields) {
-      alert('Please fill in all required fields');
-      return;
-    }
-
     // Navigate to loan table page with both form data sets
     navigate('/loan-table', { 
       state: { 
@@ -62,6 +53,12 @@ function ResultsPage() {
       } 
     });
   };
+
+  // Check if any of the three main fields has a value to disable others
+  const hasModelledRate = resultsForm.modelledInterestRate.trim() !== '';
+  const hasSavings = resultsForm.amountSavedPerMonth.trim() !== '';
+  const hasPayback = resultsForm.paybackPeriod.trim() !== '';
+  const anyFieldHasValue = hasModelledRate || hasSavings || hasPayback;
 
   // Mock KPI data based on form inputs
   const kpiData = [
@@ -151,6 +148,7 @@ function ResultsPage() {
                     value={resultsForm.modelledInterestRate}
                     onChange={handleInputChange('modelledInterestRate')}
                     placeholder="e.g., 375"
+                    disabled={anyFieldHasValue && !hasModelledRate}
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-colors duration-200"
                   />
                   <p className="text-xs text-gray-500">Enter rate in basis points (100 bps = 1%)</p>
@@ -166,6 +164,7 @@ function ResultsPage() {
                     value={resultsForm.amountSavedPerMonth}
                     onChange={handleInputChange('amountSavedPerMonth')}
                     placeholder="e.g., 250"
+                    disabled={anyFieldHasValue && !hasSavings}
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-colors duration-200"
                   />
                   <p className="text-xs text-gray-500">Enter amount in dollars</p>
@@ -181,6 +180,7 @@ function ResultsPage() {
                     value={resultsForm.paybackPeriod}
                     onChange={handleInputChange('paybackPeriod')}
                     placeholder="e.g., 36"
+                    disabled={anyFieldHasValue && !hasPayback}
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-colors duration-200"
                   />
                   <p className="text-xs text-gray-500">Number of months to break even</p>

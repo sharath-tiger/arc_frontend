@@ -91,7 +91,7 @@ function ResultsPage() {
             <div>
               <h1 className="text-4xl font-bold text-gray-900">ARC</h1>
               <p className="text-lg text-gray-600 mt-1">
-                Based on your application for {formData.propertyType} in {formData.state}
+                Automatic Refinance calculator
               </p>
             </div>
           </div>

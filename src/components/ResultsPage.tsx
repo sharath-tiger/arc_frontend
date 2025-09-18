@@ -106,10 +106,14 @@ function ResultsPage() {
                 <p className="font-medium text-gray-900 capitalize">{formData.propertyType}</p>
               </div>
               <div>
-                <span className="text-gray-500">Location:</span>
-                <p className="font-medium text-gray-900">{formData.state}, {formData.zipCode}</p>
+                <span className="text-gray-500">State:</span>
+                <p className="font-medium text-gray-900">{formData.state}</p>
               </div>
-            
+              
+               <div>
+                <span className="text-gray-500">Zip Code:</span>
+                <p className="font-medium text-gray-900">{formData.zipCode}</p>
+              </div>
             </div>
           </div>
 

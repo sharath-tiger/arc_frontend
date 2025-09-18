@@ -70,10 +70,10 @@ function LoanForm() {
           <div className="text-center mb-8">
             <div className="flex justify-center items-center mb-4">
               <Building2 className="w-12 h-12 text-indigo-600 mr-3" />
-              <h1 className="text-4xl font-bold text-gray-900">Mortgage Loan </h1>
+              <h1 className="text-4xl font-bold text-gray-900">ARC </h1>
             </div>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              Complete the form below to begin your loan refinance application process
+              Automatic Refinance calculator
             </p>
           </div>
 

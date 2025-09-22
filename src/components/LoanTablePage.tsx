@@ -112,7 +112,7 @@ function LoanTablePage() {
           <div className="flex items-center mb-8">
             <button
               onClick={() => navigate('/results', { state: { formData } })}
-              className="flex items-center text-indigo-600 hover:text-indigo-700 transition-colors duration-200 mr-6"
+              className="flex items-center text-green-600 hover:text-green-700 transition-colors duration-200 mr-6"
             >
               <ArrowLeft className="w-5 h-5 mr-2" />
               Back to Results
@@ -136,7 +136,7 @@ function LoanTablePage() {
                   placeholder="Search by Customer ID"
                   value={searchCustomerId}
                   onChange={(e) => setSearchCustomerId(e.target.value)}
-                  className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-colors duration-200"
+                  className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-colors duration-200"
                 />
               </div>
               <div className="relative">
@@ -146,7 +146,7 @@ function LoanTablePage() {
                   placeholder="Search by Loan ID"
                   value={searchLoanId}
                   onChange={(e) => setSearchLoanId(e.target.value)}
-                  className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-colors duration-200"
+                  className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-colors duration-200"
                 />
               </div>
             </div>
@@ -157,9 +157,9 @@ function LoanTablePage() {
 
           {/* Data Table */}
           <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
-            <div className="bg-gradient-to-r from-indigo-600 to-purple-600 p-6">
+            <div className="bg-gradient-to-r from-green-600 to-green-700 p-6">
               <h2 className="text-2xl font-semibold text-white">Viable Mortgage Loans</h2>
-              <p className="text-indigo-100 mt-1">Page {currentPage} of {totalPages}</p>
+              <p className="text-green-100 mt-1">Page {currentPage} of {totalPages}</p>
             </div>
 
             <div className="overflow-x-auto">
@@ -192,7 +192,7 @@ function LoanTablePage() {
                       <td className="px-4 py-4 whitespace-nowrap text-sm font-medium">
                         <Link 
                           to={`/loan-details/${record.loanId}`}
-                          className="text-indigo-600 hover:text-indigo-800 hover:underline transition-colors duration-200"
+                          className="text-green-600 hover:text-green-800 hover:underline transition-colors duration-200"
                         >
                           {record.loanId}
                         </Link>
@@ -273,7 +273,7 @@ function LoanTablePage() {
                           onClick={() => setCurrentPage(pageNum)}
                           className={`relative inline-flex items-center px-4 py-2 border text-sm font-medium ${
                             currentPage === pageNum
-                              ? 'z-10 bg-indigo-50 border-indigo-500 text-indigo-600'
+                              ? 'z-10 bg-green-50 border-green-500 text-green-600'
                               : 'bg-white border-gray-300 text-gray-500 hover:bg-gray-50'
                           }`}
                         >

@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { useLocation, useNavigate, Link } from 'react-router-dom';
-import { ArrowLeft, Search, ChevronLeft, ChevronRight } from 'lucide-react';
+import { ArrowLeft, Search, ChevronLeft, ChevronRight, Building2 } from 'lucide-react';
 import { LoanFormData } from './LoanForm';
 
 interface LoanRecord {

@@ -68,7 +68,7 @@ function LoanForm() {
           <div className="text-center mb-8">
             <div className="flex justify-center items-center mb-4">
               <img 
-                src="https://www.regions.com/content/dam/regions/personal/shared/regions-logo.svg" 
+                src="https://www.regions.com/rdcresources/content/media/img/regions-logo-no-r.svg" 
                 alt="Regions Bank" 
                 className="h-12 mr-4"
                 onError={(e) => {

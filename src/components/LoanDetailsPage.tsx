@@ -149,14 +149,14 @@ function LoanDetailsPage() {
               <img 
                 src="https://www.regions.com/rdcresources/content/media/img/regions-logo-no-r.svg" 
                 alt="Regions Bank" 
-                className="h-10 mr-3"
+                className="h-2 mr-3"
                 onError={(e) => {
                   e.currentTarget.style.display = 'none';
                   e.currentTarget.nextElementSibling.style.display = 'flex';
                 }}
               />
               <div className="hidden items-center" style={{display: 'none'}}>
-                <Building2 className="w-8 h-8 text-green-600 mr-3" />
+              
               </div>
               <div>
                 <h1 className="text-4xl font-bold text-gray-900"></h1>

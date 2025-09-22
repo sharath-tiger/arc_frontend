@@ -147,7 +147,7 @@ function LoanDetailsPage() {
             </button>
             <div className="flex items-center">
               <img 
-                src="https://www.regions.com/content/dam/regions/personal/shared/regions-logo.svg" 
+                src="https://www.regions.com/rdcresources/content/media/img/regions-logo-no-r.svg" 
                 alt="Regions Bank" 
                 className="h-10 mr-3"
                 onError={(e) => {

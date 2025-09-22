@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { ArrowLeft, TrendingUp, DollarSign, Calendar, Home, Users } from 'lucide-react';
+import { ArrowLeft, TrendingUp, DollarSign, Calendar, Home, Users, Building2 } from 'lucide-react';
 import { LoanFormData } from './LoanForm';
 
 interface ResultsFormData {

@@ -80,7 +80,7 @@ function LoanForm() {
                 <Building2 className="w-12 h-12 text-green-600 mr-3" />
                 <h1 className="text-4xl font-bold text-gray-900">Regions Bank</h1>
               </div>
-              <h1 className="text-4xl font-bold text-gray-900">ARC</h1>
+              <h1 className="text-4xl font-bold text-gray-900"></h1>
             </div>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
               ARC - Automatic refinancing calculator helps identify all viable loans across geographic locations in the Country.

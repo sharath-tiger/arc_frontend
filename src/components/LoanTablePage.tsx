@@ -120,7 +120,7 @@ function LoanTablePage() {
             <div>
               <div className="flex items-center mb-2">
                 <img 
-                  src="https://www.regions.com/content/dam/regions/personal/shared/regions-logo.svg" 
+                  src="https://www.regions.com/rdcresources/content/media/img/regions-logo-no-r.svg" 
                   alt="Regions Bank" 
                   className="h-10 mr-3"
                   onError={(e) => {
@@ -131,7 +131,7 @@ function LoanTablePage() {
                 <div className="hidden items-center" style={{display: 'none'}}>
                   <Building2 className="w-10 h-10 text-green-600 mr-3" />
                 </div>
-                <h1 className="text-4xl font-bold text-gray-900">ARC</h1>
+                <h1 className="text-4xl font-bold text-gray-900"></h1>
               </div>
               <p className="text-lg text-gray-600 mt-1">
                 Automatic Refinance calculator

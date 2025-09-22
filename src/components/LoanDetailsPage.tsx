@@ -156,7 +156,7 @@ function LoanDetailsPage() {
                 }}
               />
               <div className="hidden items-center" style={{display: 'none'}}>
-                <Building2 className="w-8 h-8 text-green-600 mr-3" />
+              
               </div>
               <div>
                 <h1 className="text-4xl font-bold text-gray-900"></h1>

@@ -149,7 +149,7 @@ function LoanDetailsPage() {
               <img 
                 src="https://www.regions.com/rdcresources/content/media/img/regions-logo-no-r.svg" 
                 alt="Regions Bank" 
-                className="h-4 mr-3"
+                className="h-2 mr-3"
                 onError={(e) => {
                   e.currentTarget.style.display = 'none';
                   e.currentTarget.nextElementSibling.style.display = 'flex';

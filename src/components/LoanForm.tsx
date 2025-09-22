@@ -67,11 +67,23 @@ function LoanForm() {
           {/* Header */}
           <div className="text-center mb-8">
             <div className="flex justify-center items-center mb-4">
-              <Building2 className="w-12 h-12 text-green-600 mr-3" />
-              <h1 className="text-4xl font-bold text-gray-900">ARC </h1>
+              <img 
+                src="https://www.regions.com/content/dam/regions/personal/shared/regions-logo.svg" 
+                alt="Regions Bank" 
+                className="h-12 mr-4"
+                onError={(e) => {
+                  e.currentTarget.style.display = 'none';
+                  e.currentTarget.nextElementSibling.style.display = 'flex';
+                }}
+              />
+              <div className="hidden items-center" style={{display: 'none'}}>
+                <Building2 className="w-12 h-12 text-green-600 mr-3" />
+                <h1 className="text-4xl font-bold text-gray-900">Regions Bank</h1>
+              </div>
+              <h1 className="text-4xl font-bold text-gray-900">ARC</h1>
             </div>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-          ARC - Automatic refinancing calculator helps identify all viable loans across geographic locations in the Country.
+              ARC - Automatic refinancing calculator helps identify all viable loans across geographic locations in the Country.
             </p>
           </div>
 

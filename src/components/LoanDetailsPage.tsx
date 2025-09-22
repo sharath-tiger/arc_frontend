@@ -159,7 +159,7 @@ function LoanDetailsPage() {
                 <Building2 className="w-8 h-8 text-green-600 mr-3" />
               </div>
               <div>
-                <h1 className="text-4xl font-bold text-gray-900">ARC</h1>
+                <h1 className="text-4xl font-bold text-gray-900"></h1>
                 <p className="text-lg text-gray-600 mt-1">
                   Comprehensive information for Loan ID: {loanDetail.loanId}
                 </p>

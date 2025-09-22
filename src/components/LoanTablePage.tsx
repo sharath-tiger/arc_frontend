@@ -118,9 +118,9 @@ function LoanTablePage() {
               Back to Results
             </button>
             <div>
-              <h1 className="text-4xl font-bold text-gray-900">Loan Portfolio</h1>
+              <h1 className="text-4xl font-bold text-gray-900">ARC</h1>
               <p className="text-lg text-gray-600 mt-1">
-                Comprehensive loan data with advanced filtering and pagination
+                 Automatic Refinance calculator
               </p>
             </div>
           </div>
@@ -158,7 +158,7 @@ function LoanTablePage() {
           {/* Data Table */}
           <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
             <div className="bg-gradient-to-r from-indigo-600 to-purple-600 p-6">
-              <h2 className="text-2xl font-semibold text-white">Loan Data Table</h2>
+              <h2 className="text-2xl font-semibold text-white">Viable Mortgage Loans</h2>
               <p className="text-indigo-100 mt-1">Page {currentPage} of {totalPages}</p>
             </div>
 
@@ -166,27 +166,29 @@ function LoanTablePage() {
               <table className="w-full">
                 <thead className="bg-gray-50">
                   <tr>
+                                        <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Customer ID</th>
                     <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Loan ID</th>
-                    <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Product Type</th>
+
                     <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Origination Date</th>
                     <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Loan Term</th>
                     <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Investor</th>
-                    <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Customer ID</th>
+
                     <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Interest Rate</th>
                     <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Original Property Value</th>
-                    <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Current Property Value</th>
+                    <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Current Estimated Property Value</th>
                     <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Original Loan Balance</th>
                     <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Original LTV</th>
                     <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Payment (P&I)</th>
                     <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Mortgage Insurance</th>
                     <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Current LTV</th>
                     <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Current Loan Balance</th>
-                    <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Calculated LTV</th>
+                    <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Calculated New LTV</th>
                   </tr>
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200">
                   {currentRecords.map((record, index) => (
                     <tr key={record.loanId} className={index % 2 === 0 ? 'bg-white' : 'bg-gray-50'}>
+                                            <td className="px-4 py-4 whitespace-nowrap text-sm font-medium text-purple-600">{record.customerId}</td>
                       <td className="px-4 py-4 whitespace-nowrap text-sm font-medium">
                         <Link 
                           to={`/loan-details/${record.loanId}`}
@@ -195,11 +197,11 @@ function LoanTablePage() {
                           {record.loanId}
                         </Link>
                       </td>
-                      <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">{record.productType}</td>
+
                       <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">{record.originationDate}</td>
                       <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">{record.loanTerm} years</td>
                       <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">{record.investor}</td>
-                      <td className="px-4 py-4 whitespace-nowrap text-sm font-medium text-purple-600">{record.customerId}</td>
+
                       <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">{record.interestRate}%</td>
                       <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">{formatCurrency(record.originalPropertyValue)}</td>
                       <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">{formatCurrency(record.currentEstimatedPropertyValue)}</td>

@@ -45,15 +45,6 @@ function ResultsPage() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     
-    // Basic validation
-    const requiredFields = Object.entries(resultsForm);
-    const hasEmptyFields = requiredFields.some(([_, value]) => !value.trim());
-    
-    if (hasEmptyFields) {
-      alert('Please fill in all required fields');
-      return;
-    }
-
     // Navigate to loan table page with both form data sets
     navigate('/loan-table', { 
       state: { 
@@ -62,6 +53,12 @@ function ResultsPage() {
       } 
     });
   };
+
+  // Check if any of the three main fields has a value to disable others
+  const hasModelledRate = resultsForm.modelledInterestRate.trim() !== '';
+  const hasSavings = resultsForm.amountSavedPerMonth.trim() !== '';
+  const hasPayback = resultsForm.paybackPeriod.trim() !== '';
+  const anyFieldHasValue = hasModelledRate || hasSavings || hasPayback;
 
   // Mock KPI data based on form inputs
   const kpiData = [
@@ -89,9 +86,9 @@ function ResultsPage() {
               Back to Application
             </button>
             <div>
-              <h1 className="text-4xl font-bold text-gray-900">Loan Results</h1>
+              <h1 className="text-4xl font-bold text-gray-900">ARC</h1>
               <p className="text-lg text-gray-600 mt-1">
-                Based on your application for {formData.propertyType} in {formData.state}
+                Automatic Refinance calculator
               </p>
             </div>
           </div>
@@ -109,15 +106,19 @@ function ResultsPage() {
                 <p className="font-medium text-gray-900 capitalize">{formData.propertyType}</p>
               </div>
               <div>
-                <span className="text-gray-500">Location:</span>
-                <p className="font-medium text-gray-900">{formData.state}, {formData.zipCode}</p>
+                <span className="text-gray-500">State:</span>
+                <p className="font-medium text-gray-900">{formData.state}</p>
               </div>
-            
+              
+               <div>
+                <span className="text-gray-500">Zip Code:</span>
+                <p className="font-medium text-gray-900">{formData.zipCode}</p>
+              </div>
             </div>
           </div>
 
           {/* KPI Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+          <div className="grid grid-cols-1  mb-8">
             {kpiData.map((kpi, index) => (
               <div key={index} className="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow duration-200">
                 <div className="flex items-center justify-between mb-4">
@@ -135,8 +136,8 @@ function ResultsPage() {
           {/* Results Form */}
           <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
             <div className="bg-gradient-to-r from-indigo-600 to-purple-600 p-6">
-              <h2 className="text-2xl font-semibold text-white">Loan Optimization</h2>
-              <p className="text-indigo-100 mt-1">Fine-tune your loan parameters</p>
+              <h2 className="text-2xl font-semibold text-white">Mortgage Engine</h2>
+              <p className="text-indigo-100 mt-1">Choose any one of the options to filter</p>
             </div>
 
             <form onSubmit={handleSubmit} className="p-8">
@@ -151,6 +152,7 @@ function ResultsPage() {
                     value={resultsForm.modelledInterestRate}
                     onChange={handleInputChange('modelledInterestRate')}
                     placeholder="e.g., 375"
+                    disabled={anyFieldHasValue && !hasModelledRate}
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-colors duration-200"
                   />
                   <p className="text-xs text-gray-500">Enter rate in basis points (100 bps = 1%)</p>
@@ -166,6 +168,7 @@ function ResultsPage() {
                     value={resultsForm.amountSavedPerMonth}
                     onChange={handleInputChange('amountSavedPerMonth')}
                     placeholder="e.g., 250"
+                    disabled={anyFieldHasValue && !hasSavings}
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-colors duration-200"
                   />
                   <p className="text-xs text-gray-500">Enter amount in dollars</p>
@@ -174,13 +177,14 @@ function ResultsPage() {
                 {/* Payback Period */}
                 <div className="space-y-2">
                   <label className="block text-sm font-semibold text-gray-700">
-                    Minimum Payback Period (No. of Months) *
+                    Maximum Payback Period (No. of Months) *
                   </label>
                   <input
                     type="number"
                     value={resultsForm.paybackPeriod}
                     onChange={handleInputChange('paybackPeriod')}
                     placeholder="e.g., 36"
+                    disabled={anyFieldHasValue && !hasPayback}
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-colors duration-200"
                   />
                   <p className="text-xs text-gray-500">Number of months to break even</p>
@@ -189,7 +193,7 @@ function ResultsPage() {
                 {/* Escrow */}
                 <div className="space-y-2">
                   <label className="block text-sm font-semibold text-gray-700">
-                    Refinance - Escrow *
+                    Refinance - Escrow 
                   </label>
                   <select
                     value={resultsForm.escrow}
@@ -205,7 +209,7 @@ function ResultsPage() {
                 {/* Occupancy Type */}
                 <div className="space-y-2">
                   <label className="block text-sm font-semibold text-gray-700">
-                    Refinance - Occupancy Type *
+                    Refinance - Occupancy Type 
                   </label>
                   <select
                     value={resultsForm.occupancyType}
@@ -225,7 +229,7 @@ function ResultsPage() {
                   type="submit"
                   className="px-8 py-4 bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-semibold rounded-lg hover:from-indigo-700 hover:to-purple-700 focus:ring-4 focus:ring-indigo-200 transform hover:scale-105 transition-all duration-200 shadow-lg"
                 >
-                  Calculate Optimized Results
+                  View Viable Loans
                 </button>
               </div>
             </form>

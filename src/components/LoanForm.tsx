@@ -27,8 +27,6 @@ function LoanForm() {
     productType: '',
     state: '',
     propertyType: '',
-    escrow: '',
-    occupancyType: '',
     zipCode: ''
   });
 
@@ -70,17 +68,17 @@ function LoanForm() {
           <div className="text-center mb-8">
             <div className="flex justify-center items-center mb-4">
               <Building2 className="w-12 h-12 text-indigo-600 mr-3" />
-              <h1 className="text-4xl font-bold text-gray-900">Mortgage Loan </h1>
+              <h1 className="text-4xl font-bold text-gray-900">ARC </h1>
             </div>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              Complete the form below to begin your loan refinance application process
+          ARC - Automatic refinancing calculator helps identify all viable loans across geographic locations in the Country.
             </p>
           </div>
 
           {/* Form */}
           <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
             <div className="bg-gradient-to-r from-indigo-600 to-purple-600 p-6">
-              <h2 className="text-2xl font-semibold text-white">Mortgage Loan </h2>
+              <h2 className="text-2xl font-semibold text-white">View Eligible Mortgage Loans </h2>
               <p className="text-indigo-100 mt-1">Please fill in all required information</p>
             </div>
 
@@ -138,11 +136,25 @@ function LoanForm() {
                     <option value="single family">Single Family</option>
                   </select>
                 </div>
+                {/* Zip Code */}
+                <div className="space-y-2">
+                  <label className="block text-sm font-semibold text-gray-700">
+                    Zip Code *
+                  </label>
+                  <input
+                    type="text"
+                    value={formData.zipCode}
+                    onChange={handleInputChange('zipCode')}
+                    placeholder="Enter Zip Code"
+                    maxLength={10}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-colors duration-200"
+                  />
+                </div>
 
                 {/* Escrow */}
                 <div className="space-y-2">
                   <label className="block text-sm font-semibold text-gray-700">
-                    Escrow *
+                    Escrow 
                   </label>
                   <select
                     value={formData.escrow}
@@ -158,7 +170,7 @@ function LoanForm() {
                 {/* Occupancy Type */}
                 <div className="space-y-2">
                   <label className="block text-sm font-semibold text-gray-700">
-                    Occupancy Type *
+                    Occupancy Type 
                   </label>
                   <select
                     value={formData.occupancyType}
@@ -172,20 +184,7 @@ function LoanForm() {
                   </select>
                 </div>
 
-                {/* Zip Code */}
-                <div className="space-y-2">
-                  <label className="block text-sm font-semibold text-gray-700">
-                    Zip Code *
-                  </label>
-                  <input
-                    type="text"
-                    value={formData.zipCode}
-                    onChange={handleInputChange('zipCode')}
-                    placeholder="Enter Zip Code"
-                    maxLength={10}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-colors duration-200"
-                  />
-                </div>
+                
               </div>
 
               {/* Submit Button */}
@@ -194,7 +193,7 @@ function LoanForm() {
                   type="submit"
                   className="px-8 py-4 bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-semibold rounded-lg hover:from-indigo-700 hover:to-purple-700 focus:ring-4 focus:ring-indigo-200 transform hover:scale-105 transition-all duration-200 shadow-lg"
                 >
-                  Continue to Results
+                  Apply Filters
                 </button>
               </div>
             </form>

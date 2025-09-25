@@ -109,16 +109,16 @@ function LoanTablePage() {
       <div className="container mx-auto px-4 py-8">
         <div className="max-w-7xl mx-auto">
           {/* Header */}
-          <div className="flex items-center mb-8">
+          <div className="relative flex justify-center items-center mb-8">
             <button
               onClick={() => navigate('/results', { state: { formData } })}
-              className="flex items-center text-green-600 hover:text-green-700 transition-colors duration-200 mr-6"
-            >
+              className="absolute left-0 flex items-center text-green-600 hover:text-green-700 transition-colors duration-200"
+>
               <ArrowLeft className="w-5 h-5 mr-2" />
               Back to Results
             </button>
             <div>
-              <div className="flex items-center mb-2">
+              <div className="flex flex-col items-center">
                 <img 
                   src="https://www.regions.com/rdcresources/content/media/img/regions-logo-no-r.svg" 
                   alt="Regions Bank" 

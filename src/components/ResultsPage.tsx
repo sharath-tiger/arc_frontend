@@ -77,36 +77,35 @@ function ResultsPage() {
       <div className="container mx-auto px-4 py-8">
         <div className="max-w-6xl mx-auto">
           {/* Header */}
-          <div className="flex items-center mb-8">
-            <button
-              onClick={() => navigate('/')}
-              className="flex items-center text-green-600 hover:text-green-700 transition-colors duration-200 mr-6"
-            >
-              <ArrowLeft className="w-5 h-5 mr-2" />
-              Back to Application
-            </button>
-            <div>
-              <div className="flex items-center mb-2">
-                <img 
-                  src="https://www.regions.com/content/dam/regions/personal/shared/regions-logo.svg" 
-                  alt="Regions Bank" 
-                  className="h-10 mr-3"
-                  onError={(e) => {
-                    e.currentTarget.style.display = 'none';
-                    e.currentTarget.nextElementSibling.style.display = 'flex';
-                  }}
-                />
-                <div className="hidden items-center" style={{display: 'none'}}>
-                  <Building2 className="w-10 h-10 text-green-600 mr-3" />
-                </div>
-                <h1 className="text-4xl font-bold text-gray-900">ARC</h1>
-              </div>
-              <p className="text-lg text-gray-600 mt-1">
-                Automatic Refinance calculator
-              </p>
-            </div>
-          </div>
-
+          <div className="relative flex justify-center items-center mb-8">
+  {/* The button is now positioned on the left edge of the relative parent */}
+  <button
+    onClick={() => navigate('/')}
+    className="absolute left-0 flex items-center text-green-600 hover:text-green-700 transition-colors duration-200"
+  >
+    <ArrowLeft className="w-5 h-5 mr-2" />
+    Back to Application
+  </button>
+  
+  {/* This div for the logo and text remains centered by 'justify-center' on the parent */}
+  <div className="flex flex-col items-center">
+    <img 
+      src="https://www.regions.com/rdcresources/content/media/img/regions-logo-no-r.svg" 
+      alt="Regions Bank" 
+      className="h-12"
+      onError={(e) => {
+        e.currentTarget.style.display = 'none';
+        e.currentTarget.nextElementSibling.style.display = 'flex';
+      }}
+    />
+    <div className="hidden items-center" style={{display: 'none'}}>
+      {/* Fallback content can go here */}
+    </div>
+    <p className="text-lg text-gray-600 mt-1">
+      Automatic Refinance calculator
+    </p>
+  </div>
+</div>
           {/* Application Summary */}
           <div className="bg-white rounded-2xl shadow-lg p-6 mb-8">
             <h2 className="text-xl font-semibold text-gray-900 mb-4">Loan Details</h2>

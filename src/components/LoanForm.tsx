@@ -92,8 +92,20 @@ function LoanForm() {
           {/* Header */}
           <div className="text-center mb-8">
             <div className="flex justify-center items-center mb-4">
-              <Building2 className="w-12 h-12 text-indigo-600 mr-3" />
-              <h1 className="text-4xl font-bold text-gray-900">ARC </h1>
+              <img 
+                src="https://www.regions.com/rdcresources/content/media/img/regions-logo-no-r.svg" 
+                alt="Regions Bank" 
+                className="h-12 mr-4"
+                onError={(e) => {
+                  e.currentTarget.style.display = 'none';
+                  e.currentTarget.nextElementSibling.style.display = 'flex';
+                }}
+              />
+              <div className="hidden items-center" style={{display: 'none'}}>
+                <Building2 className="w-12 h-12 text-green-600 mr-3" />
+                <h1 className="text-4xl font-bold text-gray-900">Regions Bank</h1>
+              </div>
+              <h1 className="text-4xl font-bold text-gray-900"></h1>
             </div>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
              ARC - Automatic refinancing calculator helps identify all viable loans across geographic locations in the Country.
@@ -102,9 +114,9 @@ function LoanForm() {
 
           {/* Form */}
           <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
-            <div className="bg-gradient-to-r from-indigo-600 to-purple-600 p-6">
+            <div className="bg-gradient-to-r from-green-600 to-green-700 p-6">
               <h2 className="text-2xl font-semibold text-white">View Eligible Mortgage Loans </h2>
-              <p className="text-indigo-100 mt-1">Please fill in all required information</p>
+              <p className="text-green-100 mt-1">Please fill in all required information</p>
             </div>
 
             <form onSubmit={handleSubmit} className="p-8">
@@ -146,7 +158,7 @@ function LoanForm() {
                   <select
                     value={formData.propertyType}
                     onChange={handleSelectChange('propertyType')}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-colors duration-200 bg-white"
                   >
                     <option value="">Select Property Type</option>
                     {propertyTypes.map(type => (
@@ -164,7 +176,7 @@ function LoanForm() {
                     onChange={handleInputChange('zipCode')}
                     placeholder="Enter Zip Code"
                     maxLength={10}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-colors duration-200"
                   />
                 </div>
 
@@ -174,7 +186,7 @@ function LoanForm() {
                   <select
                     value={formData.escrow}
                     onChange={handleSelectChange('escrow')}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-colors duration-200 bg-white"
                   >
                     <option value="">Select Escrow</option>
                     <option value="yes">Yes</option>
@@ -188,7 +200,7 @@ function LoanForm() {
                   <select
                     value={formData.occupancyType}
                     onChange={handleSelectChange('occupancyType')}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-colors duration-200 bg-white"
                   >
                     <option value="">Select Occupancy Type</option>
                     <option value="primary">Primary</option>
@@ -202,7 +214,7 @@ function LoanForm() {
               <div className="mt-8 flex justify-center">
                 <button
                   type="submit"
-                  className="px-8 py-4 bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-semibold rounded-lg hover:from-indigo-700 hover:to-purple-700 focus:ring-4 focus:ring-indigo-200"
+                  className="px-8 py-4 bg-gradient-to-r from-green-600 to-green-700 text-white font-semibold rounded-lg hover:from-green-700 hover:to-green-800 focus:ring-4 focus:ring-green-200 transform hover:scale-105 transition-all duration-200 shadow-lg"
                 >
                   Apply Filters
                 </button>

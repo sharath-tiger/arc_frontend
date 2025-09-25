@@ -41,6 +41,7 @@ const LoginPage: React.FC = () => {
         if(username=='abc@gmail.com' && password=='123'){
             navigate('/loan-form');
             setLoading(false);
+            localStorage.setItem('isLogged', 'true');
             return;
         }
 
@@ -53,6 +54,7 @@ const LoginPage: React.FC = () => {
             // Assuming the API returns a success flag or a token
             if (response.data.success) {
                 console.log('Login successful:', response.data);
+                localStorage.setItem('isLogged', 'true');
                 // Navigate to the next page on successful login
                 navigate('/loan-form');
             } else {

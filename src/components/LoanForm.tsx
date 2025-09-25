@@ -4,7 +4,7 @@ import { Building2 } from 'lucide-react';
 
 // 1. Import hooks and actions
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchStates, fetchProductTypes, fetchPropertyTypes } from '../../store/filterSlice';
+import { fetchNumberOfLoans, fetchStates, fetchProductTypes, fetchPropertyTypes, setSelectedState, setSelectedProductType, setSelectedPropertyType, setSelectedZipCode, setSelectedEscrow, setSelectedOccupancyType } from '../../store/filterSlice';
 import { AppDispatch, RootState } from '../../store/store'; // Adjust path to your store file
 
 // The hardcoded US_STATES array is no longer needed
@@ -28,6 +28,12 @@ function LoanForm() {
     state: fetchedStates, // Renamed to avoid conflict with formData.state
     productType: productTypes,
     propertyType: propertyTypes,
+    selectedState,
+    selectedProductType,
+    selectedPropertyType,
+    selectedZipCode,
+    selectedEscrow,
+    selectedOccupancyType,
     loading, 
     error 
   } = useSelector((state: RootState) => state.filter);
@@ -49,6 +55,21 @@ function LoanForm() {
   }, [dispatch]);
 
   const handleSelectChange = (field: keyof LoanFormData) => (e: React.ChangeEvent<HTMLSelectElement>) => {
+    if(field==='productType'){
+      dispatch(setSelectedProductType(e.target.value));
+    }
+    else if(field==='state'){
+      dispatch(setSelectedState(e.target.value));
+    }
+    else if(field==='propertyType'){
+      dispatch(setSelectedPropertyType(e.target.value));
+    }
+    else if(field==='escrow'){
+      dispatch(setSelectedEscrow(e.target.value));
+    }
+    else if(field==='occupancyType'){
+      dispatch(setSelectedOccupancyType(e.target.value));
+    }    
     setFormData(prev => ({
       ...prev,
       [field]: e.target.value
@@ -56,6 +77,7 @@ function LoanForm() {
   };
 
   const handleInputChange = (field: keyof LoanFormData) => (e: React.ChangeEvent<HTMLInputElement>) => {
+    dispatch(setSelectedZipCode(e.target.value));
     setFormData(prev => ({
       ...prev,
       [field]: e.target.value
@@ -66,8 +88,21 @@ function LoanForm() {
     e.preventDefault();
     
     const requiredFields = ['productType', 'state', 'propertyType', 'zipCode'];
-    const hasEmptyFields = requiredFields.some(field => !formData[field as keyof LoanFormData].trim());
+
+    const parameters={
+    selectedState,
+    selectedProductType,
+    selectedPropertyType,
+    selectedZipCode,
+    selectedEscrow,
+    selectedOccupancyType,
+    }
+    dispatch(fetchNumberOfLoans(parameters));
     
+    let hasEmptyFields=false;
+    if(selectedState==''||selectedPropertyType==''||selectedProductType==''||selectedZipCode==''||selectedEscrow==''||selectedOccupancyType==''){
+      hasEmptyFields=true;
+    }
     if (hasEmptyFields) {
       alert('Please fill in all required fields marked with *');
       return;
@@ -114,7 +149,7 @@ function LoanForm() {
                 <div className="space-y-2">
                   <label className="block text-sm font-semibold text-gray-700">Product Type *</label>
                   <select
-                    value={formData.productType}
+                    value={selectedProductType}
                     onChange={handleSelectChange('productType')}
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
                   >
@@ -129,7 +164,7 @@ function LoanForm() {
                 <div className="space-y-2">
                   <label className="block text-sm font-semibold text-gray-700">State *</label>
                   <select
-                    value={formData.state}
+                    value={selectedState}
                     onChange={handleSelectChange('state')}
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
                   >
@@ -144,7 +179,7 @@ function LoanForm() {
                 <div className="space-y-2">
                   <label className="block text-sm font-semibold text-gray-700">Property Type *</label>
                   <select
-                    value={formData.propertyType}
+                    value={selectedPropertyType}
                     onChange={handleSelectChange('propertyType')}
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
                   >
@@ -160,7 +195,7 @@ function LoanForm() {
                   <label className="block text-sm font-semibold text-gray-700">Zip Code *</label>
                   <input
                     type="text"
-                    value={formData.zipCode}
+                    value={selectedZipCode}
                     onChange={handleInputChange('zipCode')}
                     placeholder="Enter Zip Code"
                     maxLength={10}
@@ -172,7 +207,7 @@ function LoanForm() {
                 <div className="space-y-2">
                   <label className="block text-sm font-semibold text-gray-700">Escrow</label>
                   <select
-                    value={formData.escrow}
+                    value={selectedEscrow}
                     onChange={handleSelectChange('escrow')}
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
                   >
@@ -186,7 +221,7 @@ function LoanForm() {
                 <div className="space-y-2">
                   <label className="block text-sm font-semibold text-gray-700">Occupancy Type</label>
                   <select
-                    value={formData.occupancyType}
+                    value={selectedOccupancyType}
                     onChange={handleSelectChange('occupancyType')}
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
                   >

@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { ArrowLeft, TrendingUp, DollarSign, Calendar, Home, Users } from 'lucide-react';
 import { LoanFormData } from './LoanForm';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch, RootState } from '../../store/store'; // Adjust path to your store file
 
 interface ResultsFormData {
   modelledInterestRate: string;
@@ -15,18 +17,22 @@ function ResultsPage() {
   const location = useLocation();
   const navigate = useNavigate();
   const formData = location.state?.formData as LoanFormData;
+  const {
+      selectedState,
+      selectedProductType,
+      selectedPropertyType,
+      selectedZipCode,
+      numberOfLoans
+    } = useSelector((state: RootState) => state.filter);
 
   const [resultsForm, setResultsForm] = useState<ResultsFormData>({
     modelledInterestRate: '',
     amountSavedPerMonth: '',
-    paybackPeriod: ''
+    paybackPeriod: '',
+    escrow:"",
+    occupancyType:""
   });
 
-  // If no form data, redirect back to form
-  if (!formData) {
-    navigate('/');
-    return null;
-  }
 
   const handleInputChange = (field: keyof ResultsFormData) => (e: React.ChangeEvent<HTMLInputElement>) => {
     setResultsForm(prev => ({
@@ -99,20 +105,20 @@ function ResultsPage() {
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
               <div>
                 <span className="text-gray-500">Product Type:</span>
-                <p className="font-medium text-gray-900 capitalize">{formData.productType}</p>
+                <p className="font-medium text-gray-900 capitalize">{selectedProductType}</p>
               </div>
               <div>
                 <span className="text-gray-500">Property Type:</span>
-                <p className="font-medium text-gray-900 capitalize">{formData.propertyType}</p>
+                <p className="font-medium text-gray-900 capitalize">{selectedPropertyType}</p>
               </div>
               <div>
                 <span className="text-gray-500">State:</span>
-                <p className="font-medium text-gray-900">{formData.state}</p>
+                <p className="font-medium text-gray-900">{selectedState}</p>
               </div>
               
                <div>
                 <span className="text-gray-500">Zip Code:</span>
-                <p className="font-medium text-gray-900">{formData.zipCode}</p>
+                <p className="font-medium text-gray-900">{selectedZipCode}</p>
               </div>
             </div>
           </div>
@@ -128,7 +134,7 @@ function ResultsPage() {
                 
                 </div>
                 <h3 className="text-sm font-medium text-gray-500 mb-1">{kpi.title}</h3>
-                <p className="text-2xl font-bold text-gray-900">{kpi.value}</p>
+                <p className="text-2xl font-bold text-gray-900">{numberOfLoans}</p>
               </div>
             ))}
           </div>

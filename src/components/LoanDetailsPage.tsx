@@ -110,7 +110,7 @@ function LoanDetailsPage() {
           <h1 className="text-2xl font-bold text-gray-900 mb-4">Loan Not Found</h1>
           <button
             onClick={() => navigate('/loan-table')}
-            className="px-6 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors duration-200"
+            className="px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors duration-200"
           >
             Back to Loan Table
           </button>
@@ -135,32 +135,47 @@ function LoanDetailsPage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50">
       <div className="container mx-auto px-4 py-8">
-        <div className="max-w-7xl mx-auto">
-          {/* Header */}
-          <div className="flex items-center mb-8">
-            <button
-              onClick={() => navigate(-1)}
-              className="flex items-center text-indigo-600 hover:text-indigo-700 transition-colors duration-200 mr-6"
-            >
-              <ArrowLeft className="w-5 h-5 mr-2" />
-              Back to Loan Table
-            </button>
-            <div className="flex items-center">
-              <Building2 className="w-8 h-8 text-indigo-600 mr-3" />
-              <div>
-                <h1 className="text-4xl font-bold text-gray-900">ARC</h1>
-                <p className="text-lg text-gray-600 mt-1">
-                  Comprehensive information for Loan ID: {loanDetail.loanId}
-                </p>
-              </div>
-            </div>
-          </div>
+      <div className="max-w-7xl mx-auto">
+  {/* Add `w-full` and `justify-center` here */}
+  <div className="relative flex items-center justify-center w-full mb-8">
+    
+    {/* This button is already correctly positioned */}
+    <button
+      onClick={() => navigate(-1)}
+      className="absolute left-0 flex items-center text-green-600 hover:text-green-700 transition-colors duration-200"
+    >
+      <ArrowLeft className="w-5 h-5 mr-2" />
+      Back to Loan Table
+    </button>
 
+    {/* This content block will now be centered */}
+    <div className="flex flex-col items-center">
+      <img 
+        src="https://www.regions.com/rdcresources/content/media/img/regions-logo-no-r.svg" 
+        alt="Regions Bank" 
+        // Note: h-2 is very small, you may want to increase it (e.g., h-12)
+        className="h-12 mr-3"
+        onError={(e) => {
+          e.currentTarget.style.display = 'none';
+          e.currentTarget.nextElementSibling.style.display = 'flex';
+        }}
+      />
+      <div className="hidden items-center" style={{display: 'none'}}>
+      </div>
+      <div>
+        <h1 className="text-4xl font-bold text-gray-900"></h1>
+        <p className="text-lg text-gray-600 mt-1">
+          Comprehensive information for Loan ID: {loanDetail.loanId}
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
           {/* Loan Details Section */}
           <div className="bg-white rounded-2xl shadow-xl overflow-hidden mb-8">
-            <div className="bg-gradient-to-r from-indigo-600 to-purple-600 p-6">
+            <div className="bg-gradient-to-r from-green-600 to-green-700 p-6">
               <h2 className="text-2xl font-semibold text-white">Loan Information</h2>
-              <p className="text-indigo-100 mt-1">Current loan details and metrics</p>
+              <p className="text-green-100 mt-1">Current loan details and metrics</p>
             </div>
 
             <div className="p-8">
@@ -169,7 +184,7 @@ function LoanDetailsPage() {
                 <div className="space-y-6">
                   <div className="bg-gray-50 rounded-lg p-6">
                     <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center">
-                      <Building2 className="w-5 h-5 mr-2 text-indigo-600" />
+                      <Building2 className="w-5 h-5 mr-2 text-green-600" />
                       Basic Information
                     </h3>
                     <div className="space-y-3">
@@ -313,7 +328,7 @@ function LoanDetailsPage() {
                     <tr key={index} className={index % 2 === 0 ? 'bg-white' : 'bg-gray-50'}>
                       <td className="px-6 py-4 whitespace-nowrap">
                         <div className="flex items-center">
-                          <Shield className="w-5 h-5 text-indigo-600 mr-3" />
+                          <Shield className="w-5 h-5 text-green-600 mr-3" />
                           <span className="text-sm font-medium text-gray-900">{option.loanType}</span>
                         </div>
                       </td>
@@ -343,7 +358,6 @@ function LoanDetailsPage() {
             </div>
           </div>
         </div>
-      </div>
     </div>
   );
 }

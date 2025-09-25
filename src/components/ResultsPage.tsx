@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { ArrowLeft, TrendingUp, DollarSign, Calendar, Home, Users } from 'lucide-react';
+import { ArrowLeft, TrendingUp, DollarSign, Calendar, Home, Users, Building2 } from 'lucide-react';
 import { LoanFormData } from './LoanForm';
 
 interface ResultsFormData {
@@ -80,13 +80,27 @@ function ResultsPage() {
           <div className="flex items-center mb-8">
             <button
               onClick={() => navigate('/')}
-              className="flex items-center text-indigo-600 hover:text-indigo-700 transition-colors duration-200 mr-6"
+              className="flex items-center text-green-600 hover:text-green-700 transition-colors duration-200 mr-6"
             >
               <ArrowLeft className="w-5 h-5 mr-2" />
               Back to Application
             </button>
             <div>
-              <h1 className="text-4xl font-bold text-gray-900">ARC</h1>
+              <div className="flex items-center mb-2">
+                <img 
+                  src="https://www.regions.com/content/dam/regions/personal/shared/regions-logo.svg" 
+                  alt="Regions Bank" 
+                  className="h-10 mr-3"
+                  onError={(e) => {
+                    e.currentTarget.style.display = 'none';
+                    e.currentTarget.nextElementSibling.style.display = 'flex';
+                  }}
+                />
+                <div className="hidden items-center" style={{display: 'none'}}>
+                  <Building2 className="w-10 h-10 text-green-600 mr-3" />
+                </div>
+                <h1 className="text-4xl font-bold text-gray-900">ARC</h1>
+              </div>
               <p className="text-lg text-gray-600 mt-1">
                 Automatic Refinance calculator
               </p>
@@ -135,9 +149,9 @@ function ResultsPage() {
 
           {/* Results Form */}
           <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
-            <div className="bg-gradient-to-r from-indigo-600 to-purple-600 p-6">
+            <div className="bg-gradient-to-r from-green-600 to-green-700 p-6">
               <h2 className="text-2xl font-semibold text-white">Mortgage Engine</h2>
-              <p className="text-indigo-100 mt-1">Choose any one of the options to filter</p>
+              <p className="text-green-100 mt-1">Choose any one of the options to filter</p>
             </div>
 
             <form onSubmit={handleSubmit} className="p-8">
@@ -153,7 +167,7 @@ function ResultsPage() {
                     onChange={handleInputChange('modelledInterestRate')}
                     placeholder="e.g., 375"
                     disabled={anyFieldHasValue && !hasModelledRate}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-colors duration-200"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-colors duration-200"
                   />
                   <p className="text-xs text-gray-500">Enter rate in basis points (100 bps = 1%)</p>
                 </div>
@@ -169,7 +183,7 @@ function ResultsPage() {
                     onChange={handleInputChange('amountSavedPerMonth')}
                     placeholder="e.g., 250"
                     disabled={anyFieldHasValue && !hasSavings}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-colors duration-200"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-colors duration-200"
                   />
                   <p className="text-xs text-gray-500">Enter amount in dollars</p>
                 </div>
@@ -185,7 +199,7 @@ function ResultsPage() {
                     onChange={handleInputChange('paybackPeriod')}
                     placeholder="e.g., 36"
                     disabled={anyFieldHasValue && !hasPayback}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-colors duration-200"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-colors duration-200"
                   />
                   <p className="text-xs text-gray-500">Number of months to break even</p>
                 </div>
@@ -198,7 +212,7 @@ function ResultsPage() {
                   <select
                     value={resultsForm.escrow}
                     onChange={handleSelectChange('escrow')}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-colors duration-200 bg-white"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-colors duration-200 bg-white"
                   >
                     <option value="">Select Escrow</option>
                     <option value="yes">Yes</option>
@@ -214,7 +228,7 @@ function ResultsPage() {
                   <select
                     value={resultsForm.occupancyType}
                     onChange={handleSelectChange('occupancyType')}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-colors duration-200 bg-white"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-colors duration-200 bg-white"
                   >
                     <option value="">Select Occupancy Type</option>
                     <option value="primary">Primary</option>
@@ -227,7 +241,7 @@ function ResultsPage() {
               <div className="mt-8 flex justify-center">
                 <button
                   type="submit"
-                  className="px-8 py-4 bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-semibold rounded-lg hover:from-indigo-700 hover:to-purple-700 focus:ring-4 focus:ring-indigo-200 transform hover:scale-105 transition-all duration-200 shadow-lg"
+                  className="px-8 py-4 bg-gradient-to-r from-green-600 to-green-700 text-white font-semibold rounded-lg hover:from-green-700 hover:to-green-800 focus:ring-4 focus:ring-green-200 transform hover:scale-105 transition-all duration-200 shadow-lg"
                 >
                   View Viable Loans
                 </button>

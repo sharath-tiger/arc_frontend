@@ -1,16 +1,14 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Building2 } from 'lucide-react';
 
-const US_STATES = [
-  'Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Connecticut', 'Delaware',
-  'Florida', 'Georgia', 'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky',
-  'Louisiana', 'Maine', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi',
-  'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire', 'New Jersey', 'New Mexico',
-  'New York', 'North Carolina', 'North Dakota', 'Ohio', 'Oklahoma', 'Oregon', 'Pennsylvania',
-  'Rhode Island', 'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont',
-  'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'
-];
+// 1. Import hooks and actions
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchStates, fetchProductTypes, fetchPropertyTypes } from '../../store/filterSlice';
+import { AppDispatch, RootState } from '../../store/store'; // Adjust path to your store file
+
+// The hardcoded US_STATES array is no longer needed
+// const US_STATES = [ ... ];
 
 export interface LoanFormData {
   productType: string;
@@ -23,12 +21,32 @@ export interface LoanFormData {
 
 function LoanForm() {
   const navigate = useNavigate();
+  
+  // 2. Initialize dispatch and select data from the store
+  const dispatch = useDispatch<AppDispatch>();
+  const { 
+    state: fetchedStates, // Renamed to avoid conflict with formData.state
+    productType: productTypes,
+    propertyType: propertyTypes,
+    loading, 
+    error 
+  } = useSelector((state: RootState) => state.filter);
+
   const [formData, setFormData] = useState<LoanFormData>({
     productType: '',
     state: '',
     propertyType: '',
-    zipCode: ''
+    zipCode: '',
+    escrow: '',
+    occupancyType: ''
   });
+
+  // 3. Fetch data when the component mounts
+  useEffect(() => {
+    dispatch(fetchStates());
+    dispatch(fetchProductTypes());
+    dispatch(fetchPropertyTypes());
+  }, [dispatch]);
 
   const handleSelectChange = (field: keyof LoanFormData) => (e: React.ChangeEvent<HTMLSelectElement>) => {
     setFormData(prev => ({
@@ -47,18 +65,25 @@ function LoanForm() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     
-    // Basic validation
-    const requiredFields = Object.entries(formData);
-    const hasEmptyFields = requiredFields.some(([_, value]) => !value.trim());
+    const requiredFields = ['productType', 'state', 'propertyType', 'zipCode'];
+    const hasEmptyFields = requiredFields.some(field => !formData[field as keyof LoanFormData].trim());
     
     if (hasEmptyFields) {
-      alert('Please fill in all required fields');
+      alert('Please fill in all required fields marked with *');
       return;
     }
 
-    // Navigate to results page with form data
     navigate('/results', { state: { formData } });
   };
+
+  // Optional: Handle loading and error states for better UX
+  if (loading) {
+    return <div className="flex justify-center items-center min-h-screen">Loading filter options...</div>;
+  }
+
+  if (error) {
+    return <div className="flex justify-center items-center min-h-screen text-red-500">Error: {error}</div>;
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50">
@@ -71,7 +96,7 @@ function LoanForm() {
               <h1 className="text-4xl font-bold text-gray-900">ARC </h1>
             </div>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-          ARC - Automatic refinancing calculator helps identify all viable loans across geographic locations in the Country.
+             ARC - Automatic refinancing calculator helps identify all viable loans across geographic locations in the Country.
             </p>
           </div>
 
@@ -84,82 +109,72 @@ function LoanForm() {
 
             <form onSubmit={handleSubmit} className="p-8">
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {/* Product Type */}
+                
+                {/* Product Type - Now using data from Redux */}
                 <div className="space-y-2">
-                  <label className="block text-sm font-semibold text-gray-700">
-                    Product Type *
-                  </label>
+                  <label className="block text-sm font-semibold text-gray-700">Product Type *</label>
                   <select
                     value={formData.productType}
                     onChange={handleSelectChange('productType')}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-colors duration-200 bg-white"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
                   >
                     <option value="">Select Product Type</option>
-                    <option value="c30">C30</option>
-                    <option value="c20">C20</option>
-                    <option value="p20">P20</option>
-                    <option value="balloon">Balloon</option>
-                    <option value="c5/6arm">C 5/6 ARM</option>
-                    
-                  </select>
-                </div>
-
-                {/* State */}
-                <div className="space-y-2">
-                  <label className="block text-sm font-semibold text-gray-700">
-                    State *
-                  </label>
-                  <select
-                    value={formData.state}
-                    onChange={handleSelectChange('state')}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-colors duration-200 bg-white"
-                  >
-                    <option value="">Select State</option>
-                    {US_STATES.map(state => (
-                      <option key={state} value={state}>{state}</option>
+                    {productTypes.map(type => (
+                      <option key={type} value={type}>{type}</option>
                     ))}
                   </select>
                 </div>
 
-                {/* Property Type */}
+                {/* State - Now using data from Redux */}
                 <div className="space-y-2">
-                  <label className="block text-sm font-semibold text-gray-700">
-                    Property Type *
-                  </label>
+                  <label className="block text-sm font-semibold text-gray-700">State *</label>
+                  <select
+                    value={formData.state}
+                    onChange={handleSelectChange('state')}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                  >
+                    <option value="">Select State</option>
+                    {fetchedStates.map(stateName => (
+                      <option key={stateName} value={stateName}>{stateName}</option>
+                    ))}
+                  </select>
+                </div>
+
+                {/* Property Type - Now using data from Redux */}
+                <div className="space-y-2">
+                  <label className="block text-sm font-semibold text-gray-700">Property Type *</label>
                   <select
                     value={formData.propertyType}
                     onChange={handleSelectChange('propertyType')}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-colors duration-200 bg-white"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
                   >
                     <option value="">Select Property Type</option>
-                    <option value="condo">Condo</option>
-                    <option value="single family">Single Family</option>
+                    {propertyTypes.map(type => (
+                      <option key={type} value={type}>{type}</option>
+                    ))}
                   </select>
                 </div>
+
                 {/* Zip Code */}
                 <div className="space-y-2">
-                  <label className="block text-sm font-semibold text-gray-700">
-                    Zip Code *
-                  </label>
+                  <label className="block text-sm font-semibold text-gray-700">Zip Code *</label>
                   <input
                     type="text"
                     value={formData.zipCode}
                     onChange={handleInputChange('zipCode')}
                     placeholder="Enter Zip Code"
                     maxLength={10}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-colors duration-200"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
                   />
                 </div>
 
                 {/* Escrow */}
                 <div className="space-y-2">
-                  <label className="block text-sm font-semibold text-gray-700">
-                    Escrow 
-                  </label>
+                  <label className="block text-sm font-semibold text-gray-700">Escrow</label>
                   <select
                     value={formData.escrow}
                     onChange={handleSelectChange('escrow')}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-colors duration-200 bg-white"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
                   >
                     <option value="">Select Escrow</option>
                     <option value="yes">Yes</option>
@@ -169,41 +184,30 @@ function LoanForm() {
 
                 {/* Occupancy Type */}
                 <div className="space-y-2">
-                  <label className="block text-sm font-semibold text-gray-700">
-                    Occupancy Type 
-                  </label>
+                  <label className="block text-sm font-semibold text-gray-700">Occupancy Type</label>
                   <select
                     value={formData.occupancyType}
                     onChange={handleSelectChange('occupancyType')}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-colors duration-200 bg-white"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
                   >
                     <option value="">Select Occupancy Type</option>
                     <option value="primary">Primary</option>
                     <option value="secondary">Secondary</option>
-                     <option value="investment">Investment</option>
+                    <option value="investment">Investment</option>
                   </select>
                 </div>
-
-                
               </div>
 
               {/* Submit Button */}
               <div className="mt-8 flex justify-center">
                 <button
                   type="submit"
-                  className="px-8 py-4 bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-semibold rounded-lg hover:from-indigo-700 hover:to-purple-700 focus:ring-4 focus:ring-indigo-200 transform hover:scale-105 transition-all duration-200 shadow-lg"
+                  className="px-8 py-4 bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-semibold rounded-lg hover:from-indigo-700 hover:to-purple-700 focus:ring-4 focus:ring-indigo-200"
                 >
                   Apply Filters
                 </button>
               </div>
             </form>
-          </div>
-
-          {/* Additional Info */}
-          <div className="mt-8 text-center">
-            <p className="text-sm text-gray-500">
-              Fields marked with * are required. Your information is secure and protected.
-            </p>
           </div>
         </div>
       </div>

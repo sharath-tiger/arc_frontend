@@ -50,6 +50,8 @@ const LoginPage: React.FC = () => {
                 username,
                 password
             });
+            const test= await axios.get('https://arc-backend-4nt4.onrender.com/');
+            console.log(test.data);
 
             // Assuming the API returns a success flag or a token
             if (response.data.success) {

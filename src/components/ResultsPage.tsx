@@ -24,7 +24,7 @@ function ResultsPage() {
 
   // If no form data, redirect back to form
   if (!formData) {
-    navigate('/');
+    navigate('/loan-form');
     return null;
   }
 
@@ -80,7 +80,7 @@ function ResultsPage() {
           <div className="relative flex justify-center items-center mb-8">
   {/* The button is now positioned on the left edge of the relative parent */}
   <button
-    onClick={() => navigate('/')}
+    onClick={() => navigate('/loan-form')}
     className="absolute left-0 flex items-center text-green-600 hover:text-green-700 transition-colors duration-200"
   >
     <ArrowLeft className="w-5 h-5 mr-2" />
@@ -95,7 +95,9 @@ function ResultsPage() {
       className="h-12"
       onError={(e) => {
         e.currentTarget.style.display = 'none';
-        e.currentTarget.nextElementSibling.style.display = 'flex';
+        if (e.currentTarget.nextElementSibling) {
+          (e.currentTarget.nextElementSibling as HTMLElement).style.display = 'flex';
+        }
       }}
     />
     <div className="hidden items-center" style={{display: 'none'}}>

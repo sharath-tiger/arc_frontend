@@ -1,20 +1,27 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import LoanForm from './components/LoanForm';
-import ResultsPage from './components/ResultsPage';
-import LoanTablePage from './components/LoanTablePage';
-import LoanDetailsPage from './components/LoanDetailsPage';
-import LoginPage from './components/LoginPage';
+import React from "react";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
+import LoanForm from "./components/LoanForm";
+import ResultsPage from "./components/ResultsPage";
+import LoanTablePage from "./components/LoanTablePage";
+import LoanDetailsPage from "./components/LoanDetailsPage";
+import LoginPage from "./components/LoginPage";
+import AdminSettings from "./components/AdminSettings";
 
 function App() {
   return (
     <Router>
       <Routes>
         <Route path="/loan-form" element={<LoanForm />} />
+        <Route path="/admin-settings" element={<AdminSettings />} />
         <Route path="/results" element={<ResultsPage />} />
         <Route path="/loan-table" element={<LoanTablePage />} />
         <Route path="/loan-details/:loanId" element={<LoanDetailsPage />} />
-        <Route path="/" element={<LoginPage />} />
+        <Route path="/" element={<Navigate to="/admin-settings" />} />
       </Routes>
     </Router>
   );

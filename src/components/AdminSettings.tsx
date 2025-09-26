@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import NewCampaign from "./NewCampaign";
+import RoleSwitch from "./RoleSwitch";
 
 interface Campaign {
   id: number;
@@ -41,56 +42,62 @@ function AdminSettings() {
   };
   return (
     <>
-      <div>
-        <div className="flex justify-between items-center p-4 border-b">
-          <h2>Campaign</h2>
-          <button
-            className="bg-lime-600 text-white px-4 py-2 rounded"
-            onClick={() => {
-              setIsAddMode(true);
-              setIsModalOpen(true);
-            }}
-          >
-            Create New Campaign
-          </button>
-        </div>
-        <div>
-          <table className="min-w-full divide-y divide-gray-200">
-            <thead className="bg-gray-50">
-              <tr>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Campaign Name
-                </th>
+      <div className="container mx-auto p-4 bg-gray-50 min-h-screen">
+        <h1 className="text-3xl">ARC - Settings </h1>
+        <p className="bg-gray-200 p-2 inline-block text-xs mt-2 bg-lime-600 text-white">
+          ADMIN
+        </p>
+        <div className="shadow-md bg-white mt-5 rounded-lg">
+          <div className="flex justify-between items-center p-4 border-b ">
+            <h2>Campaign</h2>
+            <button
+              className="bg-lime-600 text-white px-4 py-2 rounded"
+              onClick={() => {
+                setIsAddMode(true);
+                setIsModalOpen(true);
+              }}
+            >
+              Create New Campaign
+            </button>
+          </div>
+          <div>
+            <table className="min-w-full divide-y divide-gray-200">
+              <thead className="bg-gray-50">
+                <tr>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Campaign Name
+                  </th>
 
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Actions
-                </th>
-              </tr>
-            </thead>
-            <tbody className="bg-white divide-y divide-gray-200">
-              {campaigns.map((campaign) => (
-                <tr key={campaign.id}>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    {campaign.name}
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <button
-                      className="text-blue-600 hover:text-blue-900 mr-4"
-                      onClick={() => editCampaign(campaign.id)}
-                    >
-                      Edit
-                    </button>
-                    <button
-                      className="text-red-600 hover:text-red-900"
-                      onClick={() => deleteCampaign(campaign.id)}
-                    >
-                      Delete
-                    </button>
-                  </td>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Actions
+                  </th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody className="bg-white divide-y divide-gray-200">
+                {campaigns.map((campaign) => (
+                  <tr key={campaign.id}>
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      {campaign.name}
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      <button
+                        className="text-blue-600 hover:text-blue-900 mr-4"
+                        onClick={() => editCampaign(campaign.id)}
+                      >
+                        Edit
+                      </button>
+                      <button
+                        className="text-red-600 hover:text-red-900"
+                        onClick={() => deleteCampaign(campaign.id)}
+                      >
+                        Delete
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
       <NewCampaign
@@ -125,6 +132,7 @@ function AdminSettings() {
         }}
         campaignId={campaignId}
       />
+      <RoleSwitch />
     </>
   );
 }

@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { options } from "../global/constants";
+import RoleSwitch from "./RoleSwitch";
 const RenderField = ({
   enabled,
   id,
@@ -81,35 +82,42 @@ function FilterCampaign() {
     console.log("Campaign Data Submitted:", campaignData);
   };
   return (
-    <div>
-      {campaigns?.id ? (
-        <div className="p-4 border rounded-md m-4">
-          <h2 className="mb-6 text-lg font-semibold">{campaigns.name}</h2>
-          {campaigns.switchStates.map((state, index) => (
-            <div key={index} className="w-[25%]">
-              {
-                <RenderField
-                  enabled={state.enabled}
-                  id={state.id}
-                  value={campaignData?.[state.id]}
-                  setValue={(val) =>
-                    setCampaignData({ ...campaignData, [state.id]: val })
-                  }
-                />
-              }
-            </div>
-          ))}
-          <button
-            className="bg-lime-600 text-white px-4 py-2 rounded-md"
-            onClick={submit}
-          >
-            Submit
-          </button>
-        </div>
-      ) : (
-        <>No Campaign created by admin</>
-      )}
-    </div>
+    <>
+      <div className="container mx-auto p-4 bg-gray-50 min-h-screen">
+        <h1 className="text-3xl">ARC - Get Viable Customers</h1>
+        <p className="bg-gray-200 p-2 inline-block text-xs mt-2 bg-lime-600 text-white">
+          ANALYST
+        </p>
+        {campaigns?.id ? (
+          <div className="p-4 border rounded-md mt-4 bg-white shadow-md">
+            <h2 className="mb-6 text-lg font-semibold">{campaigns.name}</h2>
+            {campaigns.switchStates.map((state, index) => (
+              <div key={index} className="w-[25%]">
+                {
+                  <RenderField
+                    enabled={state.enabled}
+                    id={state.id}
+                    value={campaignData?.[state.id]}
+                    setValue={(val) =>
+                      setCampaignData({ ...campaignData, [state.id]: val })
+                    }
+                  />
+                }
+              </div>
+            ))}
+            <button
+              className="bg-lime-600 text-white px-4 py-2 rounded-md"
+              onClick={submit}
+            >
+              Submit
+            </button>
+          </div>
+        ) : (
+          <>No Campaign created by admin</>
+        )}
+      </div>
+      <RoleSwitch />
+    </>
   );
 }
 

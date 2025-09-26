@@ -1,6 +1,8 @@
 import React, { useEffect } from "react";
 import { options } from "../global/constants";
 import RoleSwitch from "./RoleSwitch";
+import { useNavigate, useParams } from "react-router-dom";
+import TopBar from "./TopBar";
 const RenderField = ({
   enabled,
   id,
@@ -56,6 +58,8 @@ const RenderField = ({
 };
 
 function FilterCampaign() {
+  const navigate = useNavigate();
+  const { campaignId } = useParams<{ campaignId: string }>();
   const [campaigns, setCampaigns] = React.useState<{
     name: string;
     id: string;
@@ -71,7 +75,10 @@ function FilterCampaign() {
         if (parsedCampaigns.length > 0) {
           console.log("Campaigns available");
           // get the last campaign
-          const lastCampaign = parsedCampaigns[parsedCampaigns.length - 1];
+          const lastCampaign = parsedCampaigns.find(
+            (camp: any) => camp.id.toString() === campaignId
+          );
+          // const lastCampaign = parsedCampaigns[parsedCampaigns.length - 1];
           console.log("Last Campaign:", lastCampaign);
           setCampaigns(lastCampaign);
         }
@@ -80,14 +87,12 @@ function FilterCampaign() {
   }, []);
   const submit = () => {
     console.log("Campaign Data Submitted:", campaignData);
+    navigate("/loan-table");
   };
   return (
     <>
       <div className="container mx-auto p-4 bg-gray-50 min-h-screen">
-        <h1 className="text-3xl">ARC - Get Viable Customers</h1>
-        <p className="bg-gray-200 p-2 inline-block text-xs mt-2 bg-lime-600 text-white">
-          ANALYST
-        </p>
+        <TopBar role="ANALYST" title="Filter Mortgages" />
         {campaigns?.id ? (
           <div className="p-4 border rounded-md mt-4 bg-white shadow-md">
             <h2 className="mb-6 text-lg font-semibold">{campaigns.name}</h2>
@@ -109,7 +114,7 @@ function FilterCampaign() {
               className="bg-lime-600 text-white px-4 py-2 rounded-md"
               onClick={submit}
             >
-              Submit
+              View Viable Loans
             </button>
           </div>
         ) : (

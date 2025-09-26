@@ -1,10 +1,16 @@
-import React, { useState, useMemo } from 'react';
-import { useLocation, useNavigate, Link } from 'react-router-dom';
-import { ArrowLeft, Search, ChevronLeft, ChevronRight, Building2 } from 'lucide-react';
-import { LoanFormData } from './LoanForm';
+import React, { useState, useMemo } from "react";
+import { useLocation, useNavigate, Link } from "react-router-dom";
+import {
+  ArrowLeft,
+  Search,
+  ChevronLeft,
+  ChevronRight,
+  Building2,
+} from "lucide-react";
+import { LoanFormData } from "./LoanForm";
 
 interface LoanRecord {
-  loanId: string
+  loanId: string;
   productType: string;
   originationDate: string;
   loanTerm: number;
@@ -24,21 +30,39 @@ interface LoanRecord {
 
 // Generate 100 mock loan records
 const generateMockData = (): LoanRecord[] => {
-  const investors = ['Fannie Mae', 'Freddie Mac', 'Wells Fargo', 'Chase', 'Bank of America', 'Quicken Loans'];
-  const productTypes = ['C30', 'C20', 'FHA', 'VA', 'Jumbo'];
-  
+  const investors = [
+    "Fannie Mae",
+    "Freddie Mac",
+    "Wells Fargo",
+    "Chase",
+    "Bank of America",
+    "Quicken Loans",
+  ];
+  const productTypes = ["C30", "C20", "FHA", "VA", "Jumbo"];
+
   return Array.from({ length: 100 }, (_, index) => {
-    const loanId = `LN${(index + 1).toString().padStart(6, '0')}`;
-    const customerId = `CU${(index + 1).toString().padStart(5, '0')}`;
+    const loanId = `LN${(index + 1).toString().padStart(6, "0")}`;
+    const customerId = `CU${(index + 1).toString().padStart(5, "0")}`;
     const originalPropertyValue = Math.floor(Math.random() * 500000) + 200000;
-    const originalLoanBalance = Math.floor(originalPropertyValue * (0.7 + Math.random() * 0.2));
-    const currentLoanBalance = Math.floor(originalLoanBalance * (0.6 + Math.random() * 0.3));
-    const currentEstimatedPropertyValue = Math.floor(originalPropertyValue * (0.9 + Math.random() * 0.3));
-    
+    const originalLoanBalance = Math.floor(
+      originalPropertyValue * (0.7 + Math.random() * 0.2)
+    );
+    const currentLoanBalance = Math.floor(
+      originalLoanBalance * (0.6 + Math.random() * 0.3)
+    );
+    const currentEstimatedPropertyValue = Math.floor(
+      originalPropertyValue * (0.9 + Math.random() * 0.3)
+    );
+
     return {
       loanId,
-      productType: productTypes[Math.floor(Math.random() * productTypes.length)],
-      originationDate: new Date(2020 + Math.floor(Math.random() * 4), Math.floor(Math.random() * 12), Math.floor(Math.random() * 28) + 1).toLocaleDateString(),
+      productType:
+        productTypes[Math.floor(Math.random() * productTypes.length)],
+      originationDate: new Date(
+        2020 + Math.floor(Math.random() * 4),
+        Math.floor(Math.random() * 12),
+        Math.floor(Math.random() * 28) + 1
+      ).toLocaleDateString(),
       loanTerm: Math.random() > 0.7 ? 15 : 30,
       investor: investors[Math.floor(Math.random() * investors.length)],
       customerId,
@@ -46,12 +70,18 @@ const generateMockData = (): LoanRecord[] => {
       originalPropertyValue,
       currentEstimatedPropertyValue,
       originalLoanBalance,
-      originalLoanToValue: parseFloat(((originalLoanBalance / originalPropertyValue) * 100).toFixed(2)),
+      originalLoanToValue: parseFloat(
+        ((originalLoanBalance / originalPropertyValue) * 100).toFixed(2)
+      ),
       paymentPI: Math.floor(originalLoanBalance * 0.005 + Math.random() * 1000),
       mortgageInsurance: Math.floor(Math.random() * 300) + 50,
-      currentLoanToValue: parseFloat(((currentLoanBalance / currentEstimatedPropertyValue) * 100).toFixed(2)),
+      currentLoanToValue: parseFloat(
+        ((currentLoanBalance / currentEstimatedPropertyValue) * 100).toFixed(2)
+      ),
       currentLoanBalance,
-      calculatedLoanToValue: parseFloat(((currentLoanBalance / currentEstimatedPropertyValue) * 100).toFixed(2))
+      calculatedLoanToValue: parseFloat(
+        ((currentLoanBalance / currentEstimatedPropertyValue) * 100).toFixed(2)
+      ),
     };
   });
 };
@@ -63,18 +93,22 @@ function LoanTablePage() {
   const resultsData = location.state?.resultsData;
 
   const [currentPage, setCurrentPage] = useState(1);
-  const [searchCustomerId, setSearchCustomerId] = useState('');
-  const [searchLoanId, setSearchLoanId] = useState('');
+  const [searchCustomerId, setSearchCustomerId] = useState("");
+  const [searchLoanId, setSearchLoanId] = useState("");
   const recordsPerPage = 20;
 
   const mockData = useMemo(() => generateMockData(), []);
 
   // Filter data based on search inputs
   const filteredData = useMemo(() => {
-    return mockData.filter(record => {
-      const customerIdMatch = searchCustomerId === '' || 
-        record.customerId.toLowerCase().includes(searchCustomerId.toLowerCase());
-      const loanIdMatch = searchLoanId === '' || 
+    return mockData.filter((record) => {
+      const customerIdMatch =
+        searchCustomerId === "" ||
+        record.customerId
+          .toLowerCase()
+          .includes(searchCustomerId.toLowerCase());
+      const loanIdMatch =
+        searchLoanId === "" ||
         record.loanId.toLowerCase().includes(searchLoanId.toLowerCase());
       return customerIdMatch && loanIdMatch;
     });
@@ -92,9 +126,9 @@ function LoanTablePage() {
   }, [searchCustomerId, searchLoanId]);
 
   const formatCurrency = (amount: number) => {
-    return new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: 'USD',
+    return new Intl.NumberFormat("en-US", {
+      style: "currency",
+      currency: "USD",
       minimumFractionDigits: 0,
       maximumFractionDigits: 0,
     }).format(amount);
@@ -110,25 +144,28 @@ function LoanTablePage() {
         <div className="max-w-7xl mx-auto">
           {/* Header */}
           <div className="relative flex justify-center items-center mb-8">
-            <button
+            {/* <button
               onClick={() => navigate('/results', { state: { formData } })}
               className="absolute left-0 flex items-center text-green-600 hover:text-green-700 transition-colors duration-200"
 >
               <ArrowLeft className="w-5 h-5 mr-2" />
               Back to Results
-            </button>
+            </button> */}
             <div>
               <div className="flex flex-col items-center">
-                <img 
-                  src="https://www.regions.com/rdcresources/content/media/img/regions-logo-no-r.svg" 
-                  alt="Regions Bank" 
+                <img
+                  src="https://www.regions.com/rdcresources/content/media/img/regions-logo-no-r.svg"
+                  alt="Regions Bank"
                   className="h-10 mr-3"
                   onError={(e) => {
-                    e.currentTarget.style.display = 'none';
-                    e.currentTarget.nextElementSibling.style.display = 'flex';
+                    e.currentTarget.style.display = "none";
+                    e.currentTarget.nextElementSibling.style.display = "flex";
                   }}
                 />
-                <div className="hidden items-center" style={{display: 'none'}}>
+                <div
+                  className="hidden items-center"
+                  style={{ display: "none" }}
+                >
                   <Building2 className="w-10 h-10 text-green-600 mr-3" />
                 </div>
                 <h1 className="text-4xl font-bold text-gray-900"></h1>
@@ -141,7 +178,9 @@ function LoanTablePage() {
 
           {/* Search Filters */}
           <div className="bg-white rounded-2xl shadow-lg p-6 mb-8">
-            <h2 className="text-xl font-semibold text-gray-900 mb-4">Search & Filter</h2>
+            <h2 className="text-xl font-semibold text-gray-900 mb-4">
+              Search & Filter
+            </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="relative">
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
@@ -172,39 +211,78 @@ function LoanTablePage() {
           {/* Data Table */}
           <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
             <div className="bg-gradient-to-r from-green-600 to-green-700 p-6">
-              <h2 className="text-2xl font-semibold text-white">Viable Mortgage Loans</h2>
-              <p className="text-green-100 mt-1">Page {currentPage} of {totalPages}</p>
+              <h2 className="text-2xl font-semibold text-white">
+                Viable Mortgage Loans
+              </h2>
+              <p className="text-green-100 mt-1">
+                Page {currentPage} of {totalPages}
+              </p>
             </div>
 
             <div className="overflow-x-auto">
               <table className="w-full">
                 <thead className="bg-gray-50">
                   <tr>
-                                        <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Customer ID</th>
-                    <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Loan ID</th>
+                    <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Customer ID
+                    </th>
+                    <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Loan ID
+                    </th>
 
-                    <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Origination Date</th>
-                    <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Loan Term</th>
-                    <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Investor</th>
+                    <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Origination Date
+                    </th>
+                    <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Loan Term
+                    </th>
+                    <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Investor
+                    </th>
 
-                    <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Interest Rate</th>
-                    <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Original Property Value</th>
-                    <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Current Estimated Property Value</th>
-                    <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Original Loan Balance</th>
-                    <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Original LTV</th>
-                    <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Payment (P&I)</th>
-                    <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Mortgage Insurance</th>
-                    <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Current LTV</th>
-                    <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Current Loan Balance</th>
-                    <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Calculated New LTV</th>
+                    <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Interest Rate
+                    </th>
+                    <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Original Property Value
+                    </th>
+                    <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Current Estimated Property Value
+                    </th>
+                    <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Original Loan Balance
+                    </th>
+                    <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Original LTV
+                    </th>
+                    <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Payment (P&I)
+                    </th>
+                    <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Mortgage Insurance
+                    </th>
+                    <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Current LTV
+                    </th>
+                    <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Current Loan Balance
+                    </th>
+                    <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Calculated New LTV
+                    </th>
                   </tr>
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200">
                   {currentRecords.map((record, index) => (
-                    <tr key={record.loanId} className={index % 2 === 0 ? 'bg-white' : 'bg-gray-50'}>
-                                            <td className="px-4 py-4 whitespace-nowrap text-sm font-medium text-purple-600">{record.customerId}</td>
+                    <tr
+                      key={record.loanId}
+                      className={index % 2 === 0 ? "bg-white" : "bg-gray-50"}
+                    >
+                      <td className="px-4 py-4 whitespace-nowrap text-sm font-medium text-purple-600">
+                        {record.customerId}
+                      </td>
                       <td className="px-4 py-4 whitespace-nowrap text-sm font-medium">
-                        <Link 
+                        <Link
                           to={`/loan-details/${record.loanId}`}
                           className="text-green-600 hover:text-green-800 hover:underline transition-colors duration-200"
                         >
@@ -212,20 +290,46 @@ function LoanTablePage() {
                         </Link>
                       </td>
 
-                      <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">{record.originationDate}</td>
-                      <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">{record.loanTerm} years</td>
-                      <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">{record.investor}</td>
+                      <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">
+                        {record.originationDate}
+                      </td>
+                      <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">
+                        {record.loanTerm} years
+                      </td>
+                      <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">
+                        {record.investor}
+                      </td>
 
-                      <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">{record.interestRate}%</td>
-                      <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">{formatCurrency(record.originalPropertyValue)}</td>
-                      <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">{formatCurrency(record.currentEstimatedPropertyValue)}</td>
-                      <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">{formatCurrency(record.originalLoanBalance)}</td>
-                      <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">{formatPercentage(record.originalLoanToValue)}</td>
-                      <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">{formatCurrency(record.paymentPI)}</td>
-                      <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">{formatCurrency(record.mortgageInsurance)}</td>
-                      <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">{formatPercentage(record.currentLoanToValue)}</td>
-                      <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">{formatCurrency(record.currentLoanBalance)}</td>
-                      <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">{formatPercentage(record.calculatedLoanToValue)}</td>
+                      <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">
+                        {record.interestRate}%
+                      </td>
+                      <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">
+                        {formatCurrency(record.originalPropertyValue)}
+                      </td>
+                      <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">
+                        {formatCurrency(record.currentEstimatedPropertyValue)}
+                      </td>
+                      <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">
+                        {formatCurrency(record.originalLoanBalance)}
+                      </td>
+                      <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">
+                        {formatPercentage(record.originalLoanToValue)}
+                      </td>
+                      <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">
+                        {formatCurrency(record.paymentPI)}
+                      </td>
+                      <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">
+                        {formatCurrency(record.mortgageInsurance)}
+                      </td>
+                      <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">
+                        {formatPercentage(record.currentLoanToValue)}
+                      </td>
+                      <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">
+                        {formatCurrency(record.currentLoanBalance)}
+                      </td>
+                      <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">
+                        {formatPercentage(record.calculatedLoanToValue)}
+                      </td>
                     </tr>
                   ))}
                 </tbody>
@@ -243,7 +347,9 @@ function LoanTablePage() {
                   Previous
                 </button>
                 <button
-                  onClick={() => setCurrentPage(Math.min(totalPages, currentPage + 1))}
+                  onClick={() =>
+                    setCurrentPage(Math.min(totalPages, currentPage + 1))
+                  }
                   disabled={currentPage === totalPages}
                   className="ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
@@ -253,21 +359,31 @@ function LoanTablePage() {
               <div className="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
                 <div>
                   <p className="text-sm text-gray-700">
-                    Showing <span className="font-medium">{startIndex + 1}</span> to{' '}
-                    <span className="font-medium">{Math.min(endIndex, filteredData.length)}</span> of{' '}
-                    <span className="font-medium">{filteredData.length}</span> results
+                    Showing{" "}
+                    <span className="font-medium">{startIndex + 1}</span> to{" "}
+                    <span className="font-medium">
+                      {Math.min(endIndex, filteredData.length)}
+                    </span>{" "}
+                    of{" "}
+                    <span className="font-medium">{filteredData.length}</span>{" "}
+                    results
                   </p>
                 </div>
                 <div>
-                  <nav className="relative z-0 inline-flex rounded-md shadow-sm -space-x-px" aria-label="Pagination">
+                  <nav
+                    className="relative z-0 inline-flex rounded-md shadow-sm -space-x-px"
+                    aria-label="Pagination"
+                  >
                     <button
-                      onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
+                      onClick={() =>
+                        setCurrentPage(Math.max(1, currentPage - 1))
+                      }
                       disabled={currentPage === 1}
                       className="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
                     >
                       <ChevronLeft className="h-5 w-5" />
                     </button>
-                    
+
                     {/* Page numbers */}
                     {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
                       let pageNum;
@@ -280,24 +396,26 @@ function LoanTablePage() {
                       } else {
                         pageNum = currentPage - 2 + i;
                       }
-                      
+
                       return (
                         <button
                           key={pageNum}
                           onClick={() => setCurrentPage(pageNum)}
                           className={`relative inline-flex items-center px-4 py-2 border text-sm font-medium ${
                             currentPage === pageNum
-                              ? 'z-10 bg-green-50 border-green-500 text-green-600'
-                              : 'bg-white border-gray-300 text-gray-500 hover:bg-gray-50'
+                              ? "z-10 bg-green-50 border-green-500 text-green-600"
+                              : "bg-white border-gray-300 text-gray-500 hover:bg-gray-50"
                           }`}
                         >
                           {pageNum}
                         </button>
                       );
                     })}
-                    
+
                     <button
-                      onClick={() => setCurrentPage(Math.min(totalPages, currentPage + 1))}
+                      onClick={() =>
+                        setCurrentPage(Math.min(totalPages, currentPage + 1))
+                      }
                       disabled={currentPage === totalPages}
                       className="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
                     >

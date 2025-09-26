@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import NewCampaign from "./NewCampaign";
 import RoleSwitch from "./RoleSwitch";
+import TopBar from "./TopBar";
 
 interface Campaign {
   id: number;
@@ -43,10 +44,8 @@ function AdminSettings() {
   return (
     <>
       <div className="container mx-auto p-4 bg-gray-50 min-h-screen">
-        <h1 className="text-3xl">ARC - Settings </h1>
-        <p className="bg-gray-200 p-2 inline-block text-xs mt-2 bg-lime-600 text-white">
-          ADMIN
-        </p>
+        <TopBar role="ADMIN" title="Campaign Settings" />
+
         <div className="shadow-md bg-white mt-5 rounded-lg">
           <div className="flex justify-between items-center p-4 border-b ">
             <h2>Campaign</h2>

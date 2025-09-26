@@ -11,6 +11,7 @@ import LoanTablePage from "./components/LoanTablePage";
 import LoanDetailsPage from "./components/LoanDetailsPage";
 import LoginPage from "./components/LoginPage";
 import AdminSettings from "./components/AdminSettings";
+import FilterCampaign from "./components/FilterCampaign";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
       <Routes>
         <Route path="/loan-form" element={<LoanForm />} />
         <Route path="/admin-settings" element={<AdminSettings />} />
+        <Route path="/filter-campaign" element={<FilterCampaign />} />
         <Route path="/results" element={<ResultsPage />} />
         <Route path="/loan-table" element={<LoanTablePage />} />
         <Route path="/loan-details/:loanId" element={<LoanDetailsPage />} />

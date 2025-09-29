@@ -19,7 +19,9 @@ function ResultsPage() {
   const [resultsForm, setResultsForm] = useState<ResultsFormData>({
     modelledInterestRate: '',
     amountSavedPerMonth: '',
-    paybackPeriod: ''
+    paybackPeriod: '',
+    escrow: '',
+    occupancyType: ''
   });
 
   // If no form data, redirect back to form
@@ -45,6 +47,14 @@ function ResultsPage() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     
+    // Validate mandatory fields
+    if (!resultsForm.modelledInterestRate.trim() || 
+        !resultsForm.amountSavedPerMonth.trim() || 
+        !resultsForm.paybackPeriod.trim()) {
+      alert('Please fill in all mandatory fields: Revised Interest Rate, Minimum Monthly Savings, and Maximum Payback Period');
+      return;
+    }
+    
     // Navigate to loan table page with both form data sets
     navigate('/loan-table', { 
       state: { 
@@ -53,12 +63,6 @@ function ResultsPage() {
       } 
     });
   };
-
-  // Check if any of the three main fields has a value to disable others
-  const hasModelledRate = resultsForm.modelledInterestRate.trim() !== '';
-  const hasSavings = resultsForm.amountSavedPerMonth.trim() !== '';
-  const hasPayback = resultsForm.paybackPeriod.trim() !== '';
-  const anyFieldHasValue = hasModelledRate || hasSavings || hasPayback;
 
   // Mock KPI data based on form inputs
   const kpiData = [
@@ -75,39 +79,38 @@ function ResultsPage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50">
       <div className="container mx-auto px-4 py-8">
-        <div className="max-w-6xl mx-auto">
+        <div className="max-w-7xl mx-auto">
           {/* Header */}
           <div className="relative flex justify-center items-center mb-8">
-  {/* The button is now positioned on the left edge of the relative parent */}
-  <button
-    onClick={() => navigate('/loan-form')}
-    className="absolute left-0 flex items-center text-green-600 hover:text-green-700 transition-colors duration-200"
-  >
-    <ArrowLeft className="w-5 h-5 mr-2" />
-    Back to Application
-  </button>
-  
-  {/* This div for the logo and text remains centered by 'justify-center' on the parent */}
-  <div className="flex flex-col items-center">
-    <img 
-      src="https://www.regions.com/rdcresources/content/media/img/regions-logo-no-r.svg" 
-      alt="Regions Bank" 
-      className="h-12"
-      onError={(e) => {
-        e.currentTarget.style.display = 'none';
-        if (e.currentTarget.nextElementSibling) {
-          (e.currentTarget.nextElementSibling as HTMLElement).style.display = 'flex';
-        }
-      }}
-    />
-    <div className="hidden items-center" style={{display: 'none'}}>
-      {/* Fallback content can go here */}
-    </div>
-    <p className="text-lg text-gray-600 mt-1">
-      Automatic Refinance calculator
-    </p>
-  </div>
-</div>
+            <button
+              onClick={() => navigate('/loan-form')}
+              className="absolute left-0 flex items-center text-green-600 hover:text-green-700 transition-colors duration-200"
+            >
+              <ArrowLeft className="w-5 h-5 mr-2" />
+              Back to Application
+            </button>
+            
+            <div className="flex flex-col items-center">
+              <img 
+                src="https://www.regions.com/rdcresources/content/media/img/regions-logo-no-r.svg" 
+                alt="Regions Bank" 
+                className="h-12"
+                onError={(e) => {
+                  e.currentTarget.style.display = 'none';
+                  if (e.currentTarget.nextElementSibling) {
+                    (e.currentTarget.nextElementSibling as HTMLElement).style.display = 'flex';
+                  }
+                }}
+              />
+              <div className="hidden items-center" style={{display: 'none'}}>
+                {/* Fallback content can go here */}
+              </div>
+              <p className="text-lg text-gray-600 mt-1">
+                Automatic Refinance calculator
+              </p>
+            </div>
+          </div>
+
           {/* Application Summary */}
           <div className="bg-white rounded-2xl shadow-lg p-6 mb-8">
             <h2 className="text-xl font-semibold text-gray-900 mb-4">Loan Details</h2>
@@ -124,8 +127,7 @@ function ResultsPage() {
                 <span className="text-gray-500">State:</span>
                 <p className="font-medium text-gray-900">{formData.state}</p>
               </div>
-              
-               <div>
+              <div>
                 <span className="text-gray-500">Zip Code:</span>
                 <p className="font-medium text-gray-900">{formData.zipCode}</p>
               </div>
@@ -133,14 +135,13 @@ function ResultsPage() {
           </div>
 
           {/* KPI Cards */}
-          <div className="grid grid-cols-1  mb-8">
+          <div className="grid grid-cols-1 mb-8">
             {kpiData.map((kpi, index) => (
               <div key={index} className="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow duration-200">
                 <div className="flex items-center justify-between mb-4">
                   <div className={`p-3 rounded-lg ${kpi.bgColor}`}>
                     <kpi.icon className={`w-6 h-6 ${kpi.color}`} />
                   </div>
-                
                 </div>
                 <h3 className="text-sm font-medium text-gray-500 mb-1">{kpi.title}</h3>
                 <p className="text-2xl font-bold text-gray-900">{kpi.value}</p>
@@ -148,106 +149,134 @@ function ResultsPage() {
             ))}
           </div>
 
-          {/* Results Form */}
-          <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
-            <div className="bg-gradient-to-r from-green-600 to-green-700 p-6">
-              <h2 className="text-2xl font-semibold text-white">Mortgage Engine</h2>
-              <p className="text-green-100 mt-1">Choose any one of the options to filter</p>
+          {/* Main Form Section with Two Columns */}
+          <form onSubmit={handleSubmit}>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+              {/* Left Side - Mandatory Fields */}
+              <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
+                <div className="bg-gradient-to-r from-red-600 to-red-700 p-6">
+                  <h2 className="text-2xl font-semibold text-white">Primary Filters</h2>
+                  <p className="text-red-100 mt-1">All fields are mandatory - choose one option</p>
+                </div>
+
+                <div className="p-8 space-y-6">
+                  {/* Revised Interest Rate */}
+                  <div className="space-y-2">
+                    <label className="block text-sm font-semibold text-gray-700">
+                      Revised Interest Rate (bps) *
+                    </label>
+                    <input
+                      type="number"
+                      value={resultsForm.modelledInterestRate}
+                      onChange={handleInputChange('modelledInterestRate')}
+                      placeholder="e.g., 375"
+                      required
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 transition-colors duration-200"
+                    />
+                    <p className="text-xs text-gray-500">Enter rate in basis points (100 bps = 1%)</p>
+                  </div>
+
+                  {/* Minimum Monthly Savings */}
+                  <div className="space-y-2">
+                    <label className="block text-sm font-semibold text-gray-700">
+                      Minimum Monthly Savings *
+                    </label>
+                    <input
+                      type="number"
+                      value={resultsForm.amountSavedPerMonth}
+                      onChange={handleInputChange('amountSavedPerMonth')}
+                      placeholder="e.g., 250"
+                      required
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 transition-colors duration-200"
+                    />
+                    <p className="text-xs text-gray-500">Enter amount in dollars</p>
+                  </div>
+
+                  {/* Maximum Payback Period */}
+                  <div className="space-y-2">
+                    <label className="block text-sm font-semibold text-gray-700">
+                      Maximum Payback Period (No. of Months) *
+                    </label>
+                    <input
+                      type="number"
+                      value={resultsForm.paybackPeriod}
+                      onChange={handleInputChange('paybackPeriod')}
+                      placeholder="e.g., 36"
+                      required
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 transition-colors duration-200"
+                    />
+                    <p className="text-xs text-gray-500">Number of months to break even</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Right Side - Optional Fields */}
+              <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
+                <div className="bg-gradient-to-r from-green-600 to-green-700 p-6">
+                  <h2 className="text-2xl font-semibold text-white">Additional Filters</h2>
+                  <p className="text-green-100 mt-1">Optional refinance parameters</p>
+                </div>
+
+                <div className="p-8 space-y-6">
+                  {/* Escrow */}
+                  <div className="space-y-2">
+                    <label className="block text-sm font-semibold text-gray-700">
+                      Refinance - Escrow
+                    </label>
+                    <select
+                      value={resultsForm.escrow}
+                      onChange={handleSelectChange('escrow')}
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-colors duration-200 bg-white"
+                    >
+                      <option value="">Select Escrow</option>
+                      <option value="yes">Yes</option>
+                      <option value="no">No</option>
+                    </select>
+                  </div>
+
+                  {/* Occupancy Type */}
+                  <div className="space-y-2">
+                    <label className="block text-sm font-semibold text-gray-700">
+                      Refinance - Occupancy Type
+                    </label>
+                    <select
+                      value={resultsForm.occupancyType}
+                      onChange={handleSelectChange('occupancyType')}
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-colors duration-200 bg-white"
+                    >
+                      <option value="">Select Occupancy Type</option>
+                      <option value="primary">Primary</option>
+                      <option value="secondary">Secondary</option>
+                      <option value="investment">Investment</option>
+                    </select>
+                  </div>
+
+                  {/* Placeholder for visual balance */}
+                  <div className="space-y-2">
+                    <div className="h-16 flex items-center justify-center text-gray-400 border-2 border-dashed border-gray-200 rounded-lg">
+                      <span className="text-sm">Additional filters can be added here</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
 
-            <form onSubmit={handleSubmit} className="p-8">
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {/* Modelled Interest Rate */}
-                <div className="space-y-2">
-                  <label className="block text-sm font-semibold text-gray-700">
-                    Revised Interest Rate (bps) *
-                  </label>
-                  <input
-                    type="number"
-                    value={resultsForm.modelledInterestRate}
-                    onChange={handleInputChange('modelledInterestRate')}
-                    placeholder="e.g., 375"
-                    disabled={anyFieldHasValue && !hasModelledRate}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-colors duration-200"
-                  />
-                  <p className="text-xs text-gray-500">Enter rate in basis points (100 bps = 1%)</p>
-                </div>
+            {/* Submit Button */}
+            <div className="mt-8 flex justify-center">
+              <button
+                type="submit"
+                className="px-8 py-4 bg-gradient-to-r from-green-600 to-green-700 text-white font-semibold rounded-lg hover:from-green-700 hover:to-green-800 focus:ring-4 focus:ring-green-200 transform hover:scale-105 transition-all duration-200 shadow-lg"
+              >
+                View Viable Loans
+              </button>
+            </div>
+          </form>
 
-                {/* Amount Saved Per Month */}
-                <div className="space-y-2">
-                  <label className="block text-sm font-semibold text-gray-700">
-                    Minimum Monthly Savings *
-                  </label>
-                  <input
-                    type="number"
-                    value={resultsForm.amountSavedPerMonth}
-                    onChange={handleInputChange('amountSavedPerMonth')}
-                    placeholder="e.g., 250"
-                    disabled={anyFieldHasValue && !hasSavings}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-colors duration-200"
-                  />
-                  <p className="text-xs text-gray-500">Enter amount in dollars</p>
-                </div>
-
-                {/* Payback Period */}
-                <div className="space-y-2">
-                  <label className="block text-sm font-semibold text-gray-700">
-                    Maximum Payback Period (No. of Months) *
-                  </label>
-                  <input
-                    type="number"
-                    value={resultsForm.paybackPeriod}
-                    onChange={handleInputChange('paybackPeriod')}
-                    placeholder="e.g., 36"
-                    disabled={anyFieldHasValue && !hasPayback}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-colors duration-200"
-                  />
-                  <p className="text-xs text-gray-500">Number of months to break even</p>
-                </div>
-
-                {/* Escrow */}
-                <div className="space-y-2">
-                  <label className="block text-sm font-semibold text-gray-700">
-                    Refinance - Escrow 
-                  </label>
-                  <select
-                    value={resultsForm.escrow}
-                    onChange={handleSelectChange('escrow')}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-colors duration-200 bg-white"
-                  >
-                    <option value="">Select Escrow</option>
-                    <option value="yes">Yes</option>
-                    <option value="no">No</option>
-                  </select>
-                </div>
-
-                {/* Occupancy Type */}
-                <div className="space-y-2">
-                  <label className="block text-sm font-semibold text-gray-700">
-                    Refinance - Occupancy Type 
-                  </label>
-                  <select
-                    value={resultsForm.occupancyType}
-                    onChange={handleSelectChange('occupancyType')}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-colors duration-200 bg-white"
-                  >
-                    <option value="">Select Occupancy Type</option>
-                    <option value="primary">Primary</option>
-                    <option value="secondary">Secondary</option>
-                  </select>
-                </div>
-              </div>
-
-              {/* Submit Button */}
-              <div className="mt-8 flex justify-center">
-                <button
-                  type="submit"
-                  className="px-8 py-4 bg-gradient-to-r from-green-600 to-green-700 text-white font-semibold rounded-lg hover:from-green-700 hover:to-green-800 focus:ring-4 focus:ring-green-200 transform hover:scale-105 transition-all duration-200 shadow-lg"
-                >
-                  View Viable Loans
-                </button>
-              </div>
-            </form>
+          {/* Additional Info */}
+          <div className="mt-8 text-center">
+            <p className="text-sm text-gray-500">
+              Fields marked with * are mandatory. Complete all primary filters to proceed.
+            </p>
           </div>
         </div>
       </div>

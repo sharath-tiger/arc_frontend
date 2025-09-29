@@ -73,7 +73,7 @@ function ResultsPage() {
     if (!resultsForm.modelledInterestRate.trim() ||
         !resultsForm.amountSavedPerMonth.trim() || 
         !resultsForm.paybackPeriod.trim()) {
-      alert('Please fill in at least one of the mandatory fields: Revised Interest Rate, Minimum Monthly Savings, or Maximum Payback Period');
+      alert('Please fill all the mandatory fields: Revised Interest Rate, Minimum Monthly Savings, or Maximum Payback Period');
       return;
     }
     

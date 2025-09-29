@@ -192,7 +192,7 @@ function FilterCampaign() {
               <div className="bg-white rounded-xl shadow-lg overflow-hidden">
                 <div className="bg-gradient-to-r from-green-600 to-green-700 p-4">
                   <h3 className="text-xl font-semibold text-white">Campaign Filters</h3>
-                  <p className="text-green-100 mt-1">Optional campaign parameters</p>
+                 
                 </div>
                 
                 <div className="p-6 space-y-4">

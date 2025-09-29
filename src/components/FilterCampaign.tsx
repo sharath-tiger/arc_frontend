@@ -108,12 +108,6 @@ function FilterCampaign() {
 
   const submit = () => {
     // Validate mandatory fields
-    if (!mandatoryFilters.revisedInterestRate.trim() || 
-        !mandatoryFilters.minimumMonthlySavings.trim() || 
-        !mandatoryFilters.maximumPaybackPeriod.trim()) {
-      alert('Please fill in all mandatory fields: Revised Interest Rate, Minimum Monthly Savings, and Maximum Payback Period');
-      return;
-    }
     
     console.log("Campaign Data Submitted:", campaignData);
     console.log("Mandatory Filters:", mandatoryFilters);

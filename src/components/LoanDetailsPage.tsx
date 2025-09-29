@@ -167,6 +167,29 @@ function LoanDetailsPage() {
             </div>
           </div>
 
+    {/* This content block will now be centered */}
+    <div className="flex flex-col items-center">
+      <img 
+        src="https://www.regions.com/rdcresources/content/media/img/regions-logo-no-r.svg" 
+        alt="Regions Bank" 
+        // Note: h-2 is very small, you may want to increase it (e.g., h-12)
+        className="h-12 mr-3"
+        onError={(e) => {
+          e.currentTarget.style.display = 'none';
+          e.currentTarget.nextElementSibling.style.display = 'flex';
+        }}
+      />
+      <div className="hidden items-center" style={{display: 'none'}}>
+      </div>
+      <div>
+        <h1 className="text-4xl font-bold text-gray-900"></h1>
+        <p className="text-lg text-gray-600 mt-1">
+          Comprehensive information for Loan ID: {loanDetail.loanId}
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
           {/* Loan Details Section */}
           <div className="bg-white rounded-2xl shadow-xl overflow-hidden mb-8">
             <div className="bg-gradient-to-r from-green-600 to-green-700 p-6">
@@ -354,7 +377,6 @@ function LoanDetailsPage() {
             </div>
           </div>
         </div>
-      </div>
     </div>
   );
 }

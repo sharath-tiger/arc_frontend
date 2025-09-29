@@ -132,9 +132,9 @@ function FilterCampaign() {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
               {/* Left Side - Mandatory Fields */}
               <div className="bg-white rounded-xl shadow-lg overflow-hidden">
-                <div className="bg-gradient-to-r from-red-600 to-red-700 p-4">
+                <div className="bg-gradient-to-r from-green-600 to-green-700 p-4">
                   <h3 className="text-xl font-semibold text-white">Primary Filters</h3>
-                  <p className="text-red-100 mt-1">All fields are mandatory</p>
+              
                 </div>
                 
                 <div className="p-6 space-y-4">

@@ -104,7 +104,7 @@ function LoanDetailsPage() {
   const loanOptions = getLoanOptions();
 
   if (!loanDetail) {
-    return (
+    return (<div>
       <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 flex items-center justify-center">
         <div className="text-center">
           <h1 className="text-2xl font-bold text-gray-900 mb-4">Loan Not Found</h1>
@@ -377,6 +377,7 @@ function LoanDetailsPage() {
             </div>
           </div>
         </div>
+    </div>
   );
 }
 

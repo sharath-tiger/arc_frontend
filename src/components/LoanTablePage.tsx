@@ -1,16 +1,11 @@
-import React, { useState, useMemo } from "react";
-import { useLocation, useNavigate, Link } from "react-router-dom";
-import {
-  ArrowLeft,
-  Search,
-  ChevronLeft,
-  ChevronRight,
-  Building2,
-} from "lucide-react";
-import { LoanFormData } from "./LoanForm";
+
+import React, { useState, useMemo } from 'react';
+import { useLocation, useNavigate, Link } from 'react-router-dom';
+import { ArrowLeft, Search, ChevronLeft, ChevronRight, Building2 } from 'lucide-react';
+import { LoanFormData } from './LoanForm';
 
 interface LoanRecord {
-  loanId: string;
+  loanId: string
   productType: string;
   originationDate: string;
   loanTerm: number;
@@ -146,8 +141,8 @@ function LoanTablePage() {
           <div className="relative flex justify-center items-center mb-8">
             {/* <button
               onClick={() => navigate('/results', { state: { formData } })}
-              className="absolute left-0 flex items-center text-green-600 hover:text-green-700 transition-colors duration-200"
->
+              className="flex items-center text-green-600 hover:text-green-700 transition-colors duration-200 mr-6"
+            >
               <ArrowLeft className="w-5 h-5 mr-2" />
               Back to Results
             </button> */}
@@ -403,8 +398,8 @@ function LoanTablePage() {
                           onClick={() => setCurrentPage(pageNum)}
                           className={`relative inline-flex items-center px-4 py-2 border text-sm font-medium ${
                             currentPage === pageNum
-                              ? "z-10 bg-green-50 border-green-500 text-green-600"
-                              : "bg-white border-gray-300 text-gray-500 hover:bg-gray-50"
+                              ? 'z-10 bg-green-50 border-green-500 text-green-600'
+                              : 'bg-white border-gray-300 text-gray-500 hover:bg-gray-50'
                           }`}
                         >
                           {pageNum}

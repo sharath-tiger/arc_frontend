@@ -89,7 +89,6 @@ function ResultsPage() {
               <ArrowLeft className="w-5 h-5 mr-2" />
               Back to Application
             </button>
-            
             <div className="flex flex-col items-center">
               <img 
                 src="https://www.regions.com/rdcresources/content/media/img/regions-logo-no-r.svg" 
@@ -149,114 +148,94 @@ function ResultsPage() {
             ))}
           </div>
 
-          {/* Main Form Section with Two Columns */}
-          <form onSubmit={handleSubmit}>
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-              {/* Left Side - Mandatory Fields */}
-              <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
-                <div className="bg-gradient-to-r from-red-600 to-red-700 p-6">
-                  <h2 className="text-2xl font-semibold text-white">Primary Filters</h2>
-                  <p className="text-red-100 mt-1">All fields are mandatory - choose one option</p>
+          {/* Results Form */}
+          <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
+            <div className="bg-gradient-to-r from-green-600 to-green-700 p-6">
+              <h2 className="text-2xl font-semibold text-white">Mortgage Engine</h2>
+              <p className="text-green-100 mt-1">Choose any one of the options to filter</p>
+            </div>
+
+            <form onSubmit={handleSubmit} className="p-8">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {/* Modelled Interest Rate */}
+                <div className="space-y-2">
+                  <label className="block text-sm font-semibold text-gray-700">
+                    Revised Interest Rate (bps) *
+                  </label>
+                  <input
+                    type="number"
+                    value={resultsForm.modelledInterestRate}
+                    onChange={handleInputChange('modelledInterestRate')}
+                    placeholder="e.g., 375"
+                    disabled={anyFieldHasValue && !hasModelledRate}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-colors duration-200"
+                  />
+                  <p className="text-xs text-gray-500">Enter rate in basis points (100 bps = 1%)</p>
                 </div>
 
-                <div className="p-8 space-y-6">
-                  {/* Revised Interest Rate */}
-                  <div className="space-y-2">
-                    <label className="block text-sm font-semibold text-gray-700">
-                      Revised Interest Rate (bps) *
-                    </label>
-                    <input
-                      type="number"
-                      value={resultsForm.modelledInterestRate}
-                      onChange={handleInputChange('modelledInterestRate')}
-                      placeholder="e.g., 375"
-                      required
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 transition-colors duration-200"
-                    />
-                    <p className="text-xs text-gray-500">Enter rate in basis points (100 bps = 1%)</p>
-                  </div>
+                {/* Amount Saved Per Month */}
+                <div className="space-y-2">
+                  <label className="block text-sm font-semibold text-gray-700">
+                    Minimum Monthly Savings *
+                  </label>
+                  <input
+                    type="number"
+                    value={resultsForm.amountSavedPerMonth}
+                    onChange={handleInputChange('amountSavedPerMonth')}
+                    placeholder="e.g., 250"
+                    disabled={anyFieldHasValue && !hasSavings}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-colors duration-200"
+                  />
+                  <p className="text-xs text-gray-500">Enter amount in dollars</p>
+                </div>
 
-                  {/* Minimum Monthly Savings */}
-                  <div className="space-y-2">
-                    <label className="block text-sm font-semibold text-gray-700">
-                      Minimum Monthly Savings *
-                    </label>
-                    <input
-                      type="number"
-                      value={resultsForm.amountSavedPerMonth}
-                      onChange={handleInputChange('amountSavedPerMonth')}
-                      placeholder="e.g., 250"
-                      required
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 transition-colors duration-200"
-                    />
-                    <p className="text-xs text-gray-500">Enter amount in dollars</p>
-                  </div>
-
-                  {/* Maximum Payback Period */}
-                  <div className="space-y-2">
-                    <label className="block text-sm font-semibold text-gray-700">
-                      Maximum Payback Period (No. of Months) *
-                    </label>
-                    <input
-                      type="number"
-                      value={resultsForm.paybackPeriod}
-                      onChange={handleInputChange('paybackPeriod')}
-                      placeholder="e.g., 36"
-                      required
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 transition-colors duration-200"
-                    />
-                    <p className="text-xs text-gray-500">Number of months to break even</p>
-                  </div>
+                {/* Payback Period */}
+                <div className="space-y-2">
+                  <label className="block text-sm font-semibold text-gray-700">
+                    Maximum Payback Period (No. of Months) *
+                  </label>
+                  <input
+                    type="number"
+                    value={resultsForm.paybackPeriod}
+                    onChange={handleInputChange('paybackPeriod')}
+                    placeholder="e.g., 36"
+                    disabled={anyFieldHasValue && !hasPayback}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-colors duration-200"
+                  />
+                  <p className="text-xs text-gray-500">Number of months to break even</p>
                 </div>
               </div>
 
-              {/* Right Side - Optional Fields */}
-              <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
-                <div className="bg-gradient-to-r from-green-600 to-green-700 p-6">
-                  <h2 className="text-2xl font-semibold text-white">Additional Filters</h2>
-                  <p className="text-green-100 mt-1">Optional refinance parameters</p>
+                {/* Escrow */}
+                <div className="space-y-2">
+                  <label className="block text-sm font-semibold text-gray-700">
+                    Refinance - Escrow 
+                  </label>
+                  <select
+                    value={resultsForm.escrow}
+                    onChange={handleSelectChange('escrow')}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-colors duration-200 bg-white"
+                  >
+                    <option value="">Select Escrow</option>
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                  </select>
                 </div>
 
-                <div className="p-8 space-y-6">
-                  {/* Escrow */}
-                  <div className="space-y-2">
-                    <label className="block text-sm font-semibold text-gray-700">
-                      Refinance - Escrow
-                    </label>
-                    <select
-                      value={resultsForm.escrow}
-                      onChange={handleSelectChange('escrow')}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-colors duration-200 bg-white"
-                    >
-                      <option value="">Select Escrow</option>
-                      <option value="yes">Yes</option>
-                      <option value="no">No</option>
-                    </select>
-                  </div>
-
-                  {/* Occupancy Type */}
-                  <div className="space-y-2">
-                    <label className="block text-sm font-semibold text-gray-700">
-                      Refinance - Occupancy Type
-                    </label>
-                    <select
-                      value={resultsForm.occupancyType}
-                      onChange={handleSelectChange('occupancyType')}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-colors duration-200 bg-white"
-                    >
-                      <option value="">Select Occupancy Type</option>
-                      <option value="primary">Primary</option>
-                      <option value="secondary">Secondary</option>
-                      <option value="investment">Investment</option>
-                    </select>
-                  </div>
-
-                  {/* Placeholder for visual balance */}
-                  <div className="space-y-2">
-                    <div className="h-16 flex items-center justify-center text-gray-400 border-2 border-dashed border-gray-200 rounded-lg">
-                      <span className="text-sm">Additional filters can be added here</span>
-                    </div>
-                  </div>
+                {/* Occupancy Type */}
+                <div className="space-y-2">
+                  <label className="block text-sm font-semibold text-gray-700">
+                    Refinance - Occupancy Type 
+                  </label>
+                  <select
+                    value={resultsForm.occupancyType}
+                    onChange={handleSelectChange('occupancyType')}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-colors duration-200 bg-white"
+                  >
+                    <option value="">Select Occupancy Type</option>
+                    <option value="primary">Primary</option>
+                    <option value="secondary">Secondary</option>
+                  </select>
                 </div>
               </div>
             </div>

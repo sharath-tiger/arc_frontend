@@ -122,8 +122,7 @@ function LoanDetailsPage() {
   const formatCurrency = (amount: number) => {
     return new Intl.NumberFormat('en-US', {
       style: 'currency',
-      currency: 'USD',
-      maximumFractionDigits: 0
+      currency: 'USD'
     }).format(amount);
   };
 

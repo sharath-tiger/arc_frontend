@@ -377,7 +377,6 @@ function LoanDetailsPage() {
             </div>
           </div>
         </div>
-    </div>
   );
 }
 

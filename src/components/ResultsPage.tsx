@@ -1,7 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { ArrowLeft, TrendingUp, DollarSign, Calendar, Home, Users, Building2 } from 'lucide-react';
-import { LoanFormData } from './LoanForm';
+import { ArrowLeft, Users } from 'lucide-react';
+
+// Assuming LoanFormData is defined in another file, e.g., './LoanForm'
+// For this component to be self-contained, let's define it here.
+export interface LoanFormData {
+  productType: string;
+  propertyType: string;
+  state: string;
+  zipCode: string;
+}
 
 interface ResultsFormData {
   modelledInterestRate: string;
@@ -14,7 +22,9 @@ interface ResultsFormData {
 function ResultsPage() {
   const location = useLocation();
   const navigate = useNavigate();
-  const formData = location.state?.formData as LoanFormData;
+  
+  // Provide a default state to avoid issues if location.state is null
+  const formData = location.state?.formData as LoanFormData || null;
 
   const [resultsForm, setResultsForm] = useState<ResultsFormData>({
     modelledInterestRate: '',
@@ -24,11 +34,23 @@ function ResultsPage() {
     occupancyType: ''
   });
 
-  // If no form data, redirect back to form
+  // Handle cases where the user navigates directly to this page
+  useEffect(() => {
+    if (!formData) {
+      navigate('/loan-form');
+    }
+  }, [formData, navigate]);
+  
+  // Conditional rendering until formData is confirmed or redirect happens
   if (!formData) {
-    navigate('/loan-form');
-    return null;
+    return null; // or a loading spinner
   }
+
+  const hasModelledRate = resultsForm.modelledInterestRate.trim() !== '';
+  const hasSavings = resultsForm.amountSavedPerMonth.trim() !== '';
+  const hasPayback = resultsForm.paybackPeriod.trim() !== '';
+  const anyFieldHasValue = hasModelledRate || hasSavings || hasPayback;
+
 
   const handleInputChange = (field: keyof ResultsFormData) => (e: React.ChangeEvent<HTMLInputElement>) => {
     setResultsForm(prev => ({
@@ -48,10 +70,10 @@ function ResultsPage() {
     e.preventDefault();
     
     // Validate mandatory fields
-    if (!resultsForm.modelledInterestRate.trim() || 
-        !resultsForm.amountSavedPerMonth.trim() || 
-        !resultsForm.paybackPeriod.trim()) {
-      alert('Please fill in all mandatory fields: Revised Interest Rate, Minimum Monthly Savings, and Maximum Payback Period');
+    if (resultsForm.modelledInterestRate.trim() && 
+        resultsForm.amountSavedPerMonth.trim() && 
+        resultsForm.paybackPeriod.trim()) {
+      alert('Please fill in at least one of the mandatory fields: Revised Interest Rate, Minimum Monthly Savings, or Maximum Payback Period');
       return;
     }
     
@@ -156,7 +178,7 @@ function ResultsPage() {
             </div>
 
             <form onSubmit={handleSubmit} className="p-8">
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
                 {/* Modelled Interest Rate */}
                 <div className="space-y-2">
                   <label className="block text-sm font-semibold text-gray-700">
@@ -167,8 +189,7 @@ function ResultsPage() {
                     value={resultsForm.modelledInterestRate}
                     onChange={handleInputChange('modelledInterestRate')}
                     placeholder="e.g., 375"
-                    disabled={anyFieldHasValue && !hasModelledRate}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-colors duration-200"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-colors duration-200 disabled:bg-gray-100"
                   />
                   <p className="text-xs text-gray-500">Enter rate in basis points (100 bps = 1%)</p>
                 </div>
@@ -183,8 +204,7 @@ function ResultsPage() {
                     value={resultsForm.amountSavedPerMonth}
                     onChange={handleInputChange('amountSavedPerMonth')}
                     placeholder="e.g., 250"
-                    disabled={anyFieldHasValue && !hasSavings}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-colors duration-200"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-colors duration-200 disabled:bg-gray-100"
                   />
                   <p className="text-xs text-gray-500">Enter amount in dollars</p>
                 </div>
@@ -199,13 +219,13 @@ function ResultsPage() {
                     value={resultsForm.paybackPeriod}
                     onChange={handleInputChange('paybackPeriod')}
                     placeholder="e.g., 36"
-                    disabled={anyFieldHasValue && !hasPayback}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-colors duration-200"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-colors duration-200 disabled:bg-gray-100"
                   />
                   <p className="text-xs text-gray-500">Number of months to break even</p>
                 </div>
               </div>
-
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {/* Escrow */}
                 <div className="space-y-2">
                   <label className="block text-sm font-semibold text-gray-700">
@@ -238,24 +258,24 @@ function ResultsPage() {
                   </select>
                 </div>
               </div>
-            </div>
 
-            {/* Submit Button */}
-            <div className="mt-8 flex justify-center">
-              <button
-                type="submit"
-                className="px-8 py-4 bg-gradient-to-r from-green-600 to-green-700 text-white font-semibold rounded-lg hover:from-green-700 hover:to-green-800 focus:ring-4 focus:ring-green-200 transform hover:scale-105 transition-all duration-200 shadow-lg"
-              >
-                View Viable Loans
-              </button>
-            </div>
-          </form>
+              {/* Submit Button */}
+              <div className="mt-8 flex justify-center">
+                <button
+                  type="submit"
+                  className="px-8 py-4 bg-gradient-to-r from-green-600 to-green-700 text-white font-semibold rounded-lg hover:from-green-700 hover:to-green-800 focus:ring-4 focus:ring-green-200 transform hover:scale-105 transition-all duration-200 shadow-lg"
+                >
+                  View Viable Loans
+                </button>
+              </div>
+            </form>
 
-          {/* Additional Info */}
-          <div className="mt-8 text-center">
-            <p className="text-sm text-gray-500">
-              Fields marked with * are mandatory. Complete all primary filters to proceed.
-            </p>
+            {/* Additional Info */}
+            <div className="p-8 pt-0 text-center">
+              <p className="text-sm text-gray-500">
+                Fields marked with * are mandatory. Complete at least one to proceed.
+              </p>
+            </div>
           </div>
         </div>
       </div>

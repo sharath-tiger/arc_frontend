@@ -1,7 +1,15 @@
 import React, { useState } from 'react';
-import axios from 'axios';
-// Import useNavigate for programmatic navigation
 import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { FilterState, loginUser } from '../../store/filterSlice';
+import { ThunkDispatch } from '@reduxjs/toolkit';
+import { AnyAction } from 'redux';
+
+interface RootState {
+    filter: FilterState;
+}
+
+type AppDispatch = ThunkDispatch<RootState, unknown, AnyAction>;
 
 // SVG component for the main Regions logo (remains unchanged)
 const RegionsLogo = () => (
@@ -25,50 +33,63 @@ const LoginPage: React.FC = () => {
     // State to manage form inputs
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    
-    // State for loading and error handling
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState<string | null>(null);
 
-    // Hook for navigation
     const navigate = useNavigate();
+    // Use the typed dispatch
+    const dispatch: AppDispatch = useDispatch();
+    
+    // Use the typed state for useSelector
+    const loginLoading = useSelector((state: RootState) => state.filter.loginLoading);
+    const loginError = useSelector((state: RootState) => state.filter.loginError);
 
-    // This function now handles the entire form submission process
+    // const handleSubmit = async (e: React.FormEvent) => {
+    //     e.preventDefault();
+    //     setLoading(true);
+    //     setError(null); // Clear previous errors
+    //     if(username=='abc@gmail.com' && password=='123'){
+    //         navigate('/loan-form');
+    //         setLoading(false);
+    //         localStorage.setItem('isLogged', 'true');
+    //         return;
+    //     }
+
+    //     try {
+    //         const response = await axios.post('https://api.example.com/login', {
+    //             username,
+    //             password
+    //         });
+
+    //         // Assuming the API returns a success flag or a token
+    //         if (response.data.success) {
+    //             console.log('Login successful:', response.data);
+    //             localStorage.setItem('isLogged', 'true');
+    //             // Navigate to the next page on successful login
+    //             navigate('/loan-form');
+    //         } else {
+    //              // Handle cases where the API indicates a failure (e.g., wrong password)
+    //             setError(response.data.message || 'Invalid username or password.');
+    //         }
+    //     } catch (err) {
+    //         console.error('Login failed:', err);
+    //         // Handle network errors or other exceptions
+    //         setError('Login failed. Please try again later.');
+    //     } finally {
+    //         // This will run whether the request succeeded or failed
+    //         setLoading(false);
+    //     }
+    // };
+
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        setLoading(true);
-        setError(null); // Clear previous errors
-        if(username=='abc@gmail.com' && password=='123'){
-            navigate('/loan-form');
-            setLoading(false);
+        const resultAction = await dispatch(
+            loginUser({ username, password })
+        );
+
+        if (loginUser.fulfilled.match(resultAction)) {
             localStorage.setItem('isLogged', 'true');
-            return;
+            navigate('/loan-form');
         }
-
-        try {
-            const response = await axios.post('https://api.example.com/login', {
-                username,
-                password
-            });
-
-            // Assuming the API returns a success flag or a token
-            if (response.data.success) {
-                console.log('Login successful:', response.data);
-                localStorage.setItem('isLogged', 'true');
-                // Navigate to the next page on successful login
-                navigate('/loan-form');
-            } else {
-                 // Handle cases where the API indicates a failure (e.g., wrong password)
-                setError(response.data.message || 'Invalid username or password.');
-            }
-        } catch (err) {
-            console.error('Login failed:', err);
-            // Handle network errors or other exceptions
-            setError('Login failed. Please try again later.');
-        } finally {
-            // This will run whether the request succeeded or failed
-            setLoading(false);
-        }
+        // Error is handled by the Redux state, so no need for local error handling here
     };
 
     return (
@@ -103,7 +124,7 @@ const LoginPage: React.FC = () => {
                                         value={username}
                                         onChange={(e) => setUsername(e.target.value)}
                                         className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#5A8A22]"
-                                        disabled={loading} // Disable input when loading
+                                        disabled={loginLoading} // Disable input when loading
                                     />
                                 </div>
 
@@ -116,14 +137,14 @@ const LoginPage: React.FC = () => {
                                         value={password}
                                         onChange={(e) => setPassword(e.target.value)}
                                         className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#5A8A22]"
-                                        disabled={loading} // Disable input when loading
+                                        disabled={loginLoading} // Disable input when loading
                                     />
                                 </div>
 
-                                {/* Display error message if there is one */}
-                                {error && (
+                                {/* Display error message if there is one from Redux state */}
+                                {loginError && (
                                     <div className="mb-4 text-center text-red-600">
-                                        {error}
+                                        {loginError}
                                     </div>
                                 )}
                                 
@@ -131,9 +152,9 @@ const LoginPage: React.FC = () => {
                                     <button 
                                         type="submit" 
                                         className="w-full bg-[#5a8a22] text-white font-bold py-3 px-4 rounded-full hover:bg-[#4a741e] transition duration-300 disabled:bg-gray-400"
-                                        disabled={loading} // Disable button when loading
+                                        disabled={loginLoading} // Disable button when loading
                                     >
-                                        {loading ? 'Logging in...' : 'Continue'}
+                                        {loginLoading ? 'Logging in...' : 'Continue'}
                                     </button>
                                 </div>
                             </form>

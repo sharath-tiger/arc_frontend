@@ -239,7 +239,6 @@ function ResultsPage() {
                 </div>
               </div>
             </div>
-        </form>
 
             {/* Submit Button */}
             <div className="mt-8 flex justify-center">
@@ -260,7 +259,6 @@ function ResultsPage() {
           </div>
         </div>
       </div>
-    </div>
   );
 }
 

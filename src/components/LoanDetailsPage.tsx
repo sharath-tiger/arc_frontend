@@ -123,7 +123,7 @@ function LoanDetailsPage() {
     return new Intl.NumberFormat('en-US', {
       style: 'currency',
       currency: 'USD',
-      maximumFractionDigits: 0,
+      maximumFractionDigits: 0
     }).format(amount);
   };
 

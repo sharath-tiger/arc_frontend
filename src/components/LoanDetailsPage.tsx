@@ -149,7 +149,7 @@ function LoanDetailsPage() {
                 className="h-8 mr-4" // Increased size for better visibility
               />
               <div>
-                <h1 className="text-4xl font-bold text-gray-900">Loan Details</h1>
+                <h1 className="text-4xl font-bold text-gray-900"></h1>
                 <p className="text-lg text-gray-600 mt-1">
                   Comprehensive information for Loan ID: {loanDetail.loanId}
                 </p>

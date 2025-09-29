@@ -70,12 +70,6 @@ function ResultsPage() {
     e.preventDefault();
     
     // Validate mandatory fields
-    if (!resultsForm.modelledInterestRate.trim() ||
-        !resultsForm.amountSavedPerMonth.trim() || 
-        !resultsForm.paybackPeriod.trim()) {
-      alert('Please fill all the mandatory fields: Revised Interest Rate, Minimum Monthly Savings, or Maximum Payback Period');
-      return;
-    }
     
     // Navigate to loan table page with both form data sets
     navigate('/loan-table', { 

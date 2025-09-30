@@ -26,7 +26,7 @@ function FilterLoans() {
           </div>
           <div className="flex flex-col space-y-2 mb-5">
             <label htmlFor="interest-rate" className="text-gray-500">
-              Enter the Revised Interest Rate (bps) *
+              Minimum Monthly Savings (bps) *
             </label>
             <input
               type="text"
@@ -36,7 +36,7 @@ function FilterLoans() {
           </div>
           <div className="flex flex-col space-y-2 mb-5">
             <label htmlFor="interest-rate" className="text-gray-500">
-              Enter the Revised Interest Rate (bps) *
+              Maximum Payback Period (No. of Months) *
             </label>
             <input
               type="text"

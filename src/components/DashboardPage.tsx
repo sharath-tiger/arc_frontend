@@ -153,9 +153,9 @@ const BellIcon = () => (
 
 const DashboardPage: React.FC = () => {
   return (
-    <div className="bg-gray-100 min-h-screen font-sans fixed inset-0">
+    <div className="bg-gray-100 min-h-screen ">
       {/* Header */}
-      <header className="bg-[#5a8a22] text-white grid grid-cols-3 items-center p-3 shadow-md relative">
+      <header className="z-10 bg-[#5a8a22] fixed top-0 w-full text-white grid grid-cols-3 items-center p-3 shadow-md ">
         {/* Left Section: Logo */}
         <div className="flex items-center">
           <RegionsLogo pyramidColor="#FFFFFF" lockupColor="#FFFFFF" />
@@ -192,7 +192,7 @@ const DashboardPage: React.FC = () => {
 
       <div className="flex">
         {/* Sidebar */}
-        <aside className="w-16 bg-white min-h-screen p-2 shadow-md flex flex-col items-center space-y-6">
+        <aside className="pt-20 fixed w-16 bg-white min-h-screen p-2 shadow-md flex flex-col items-center space-y-6">
           <button className="p-2 rounded-md text-gray-600 bg-gray-200 hover:bg-gray-300">
             <HomeIcon />
           </button>
@@ -208,7 +208,7 @@ const DashboardPage: React.FC = () => {
         </aside>
 
         {/* Main Content */}
-        <main className="flex-1 p-8">
+        <main className="flex-1 ml-16 w-full overflow-x-hidden mt-20 p-2 ">
           {/* <div className="bg-white rounded-lg shadow p-4 mb-8 max-w-md">
             <input
               type="text"

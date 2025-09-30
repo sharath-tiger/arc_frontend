@@ -13,6 +13,10 @@ import LoginPage from "./components/LoginPage";
 import AdminSettings from "./components/AdminSettings";
 import FilterCampaign from "./components/FilterCampaign";
 import ListCampaigns from "./components/ListCampaigns";
+import FilterLoans from "./components/persona/analyst/FilterLoans";
+import ViableList from "./components/persona/analyst/ViableList";
+import LoanList from "./components/persona/mlo/LoanList";
+import WorkBench from "./components/persona/mlo/WorkBench";
 
 function App() {
   return (
@@ -29,6 +33,10 @@ function App() {
         <Route path="/loan-table" element={<LoanTablePage />} />
         <Route path="/loan-details/:loanId" element={<LoanDetailsPage />} />
         <Route path="/" element={<Navigate to="/admin-settings" />} />
+        <Route path="/filter-loans" element={<FilterLoans />} />
+        <Route path="/viable-list" element={<ViableList />} />
+        <Route path="/viable-loans" element={<LoanList />} />
+        <Route path="/work-bench/:loanId" element={<WorkBench />} />
       </Routes>
     </Router>
   );

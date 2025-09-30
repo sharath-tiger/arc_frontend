@@ -1,4 +1,5 @@
-import React from 'react';
+import React from "react";
+import { Outlet } from "react-router-dom";
 
 interface RegionsLogoProps {
   pyramidColor?: string;
@@ -8,9 +9,9 @@ interface RegionsLogoProps {
 }
 
 const RegionsLogo: React.FC<RegionsLogoProps> = ({
-  pyramidColor = '#5A8A22',
-  lockupColor = '#565656',
-  className = 'h-5',
+  pyramidColor = "#5A8A22",
+  lockupColor = "#565656",
+  className = "h-5",
   showLockup = true,
 }) => (
   <svg
@@ -41,136 +42,240 @@ const RegionsLogo: React.FC<RegionsLogoProps> = ({
 
 // Icon components for the UI
 const HomeIcon = () => (
-    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
-    </svg>
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    className="h-6 w-6"
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke="currentColor"
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2}
+      d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
+    />
+  </svg>
 );
 
 const UploadIcon = () => (
-    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
-    </svg>
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    className="h-6 w-6"
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke="currentColor"
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2}
+      d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"
+    />
+  </svg>
 );
 
 const DocumentIcon = () => (
-    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-    </svg>
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    className="h-6 w-6"
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke="currentColor"
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2}
+      d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+    />
+  </svg>
 );
 
 const UserGroupIcon = () => (
-    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-    </svg>
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    className="h-6 w-6"
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke="currentColor"
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2}
+      d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
+    />
+  </svg>
 );
 
 const GlobeIcon = () => (
-    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2h8a2 2 0 002-2v-1a2 2 0 012-2h1.945M7.737 16.95l.001-.001M16.263 16.95l-.001-.001M12 20.95v.01" />
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-    </svg>
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    className="h-5 w-5"
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke="currentColor"
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2}
+      d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2h8a2 2 0 002-2v-1a2 2 0 012-2h1.945M7.737 16.95l.001-.001M16.263 16.95l-.001-.001M12 20.95v.01"
+    />
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2}
+      d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+    />
+  </svg>
 );
 
 const BellIcon = () => (
-    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6 6 0 10-12 0v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
-    </svg>
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    className="h-5 w-5"
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke="currentColor"
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2}
+      d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6 6 0 10-12 0v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
+    />
+  </svg>
 );
 
 const UserCircleIcon = () => (
-    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0z" />
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-    </svg>
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    className="h-5 w-5"
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke="currentColor"
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2}
+      d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0z"
+    />
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2}
+      d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+    />
+  </svg>
 );
 
 const ChevronDownIcon = () => (
-    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-    </svg>
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    className="h-4 w-4"
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke="currentColor"
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2}
+      d="M19 9l-7 7-7-7"
+    />
+  </svg>
 );
 
 const DashboardPage: React.FC = () => {
-    return (
-        <div className="bg-gray-100 min-h-screen font-sans">
-            {/* Header */}
-            <header className="bg-[#5a8a22] text-white grid grid-cols-3 items-center p-3 shadow-md">
-                {/* Left Section: Logo */}
-                <div className="flex items-center">
-                    <RegionsLogo pyramidColor="#FFFFFF" lockupColor="#FFFFFF" />
-                </div>
-
-                {/* Center Section: Title */}
-                <div className="text-center">
-                    <span className="font-bold text-md">Automated Finance Calculator</span>
-                </div>
-
-                {/* Right Section: Icons and User */}
-                <div className="flex items-center justify-end space-x-6 text-sm">
-                    <button className="hover:text-gray-300">
-                       <GlobeIcon />
-                    </button>
-                    <button className="hover:text-gray-300">
-                        <BellIcon />
-                    </button>
-                    <div className="flex items-center space-x-2">
-                        <UserCircleIcon />
-                        <div>
-                            <div>Matthew</div>
-                            <div className="text-xs text-gray-300">Admin</div>
-                        </div>
-                        <button className="hover:text-gray-300">
-                            <ChevronDownIcon />
-                        </button>
-                    </div>
-                </div>
-            </header>
-
-            <div className="flex">
-                {/* Sidebar */}
-                <aside className="w-16 bg-white min-h-screen p-2 shadow-md flex flex-col items-center space-y-6">
-                    <button className="p-2 rounded-md text-gray-600 bg-gray-200 hover:bg-gray-300">
-                        <HomeIcon />
-                    </button>
-                     <button className="p-2 rounded-md text-gray-600 hover:bg-gray-200">
-                        <UploadIcon />
-                    </button>
-                     <button className="p-2 rounded-md text-gray-600 hover:bg-gray-200">
-                        <DocumentIcon />
-                    </button>
-                     <button className="p-2 rounded-md text-gray-600 hover:bg-gray-200">
-                        <UserGroupIcon />
-                    </button>
-                </aside>
-
-                {/* Main Content */}
-                <main className="flex-1 p-8">
-                    <div className="bg-white rounded-lg shadow p-4 mb-8 max-w-md">
-                        <input
-                            type="text"
-                            placeholder="Search"
-                            className="w-full bg-transparent focus:outline-none"
-                        />
-                    </div>
-
-                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8">
-                        {/* Placeholder cards */}
-                        {[...Array(5)].map((_, i) => (
-                            <div key={i} className="bg-white rounded-lg shadow h-40"></div>
-                        ))}
-                    </div>
-                </main>
-            </div>
-            
-             {/* Footer */}
-            <footer className="bg-gray-200 text-black-600 text-xs p-3 fixed bottom-0 w-full">
-                <div className="flex justify-between items-center">
-                    <span className="ml-16">© {new Date().getFullYear()} Regions Bank. NMLS 174490. 1900 5th Avenue North, Birmingham, AL 35203. All Rights Reserved.</span>
-                    <RegionsLogo pyramidColor="#5a8a22" showLockup={false} />
-                </div>
-            </footer>
+  return (
+    <div className="bg-gray-100 min-h-screen font-sans fixed inset-0">
+      {/* Header */}
+      <header className="bg-[#5a8a22] text-white grid grid-cols-3 items-center p-3 shadow-md">
+        {/* Left Section: Logo */}
+        <div className="flex items-center">
+          <RegionsLogo pyramidColor="#FFFFFF" lockupColor="#FFFFFF" />
         </div>
-    );
+
+        {/* Center Section: Title */}
+        <div className="text-center">
+          <span className="font-bold text-md">
+            Automated Finance Calculator
+          </span>
+        </div>
+
+        {/* Right Section: Icons and User */}
+        <div className="flex items-center justify-end space-x-6 text-sm">
+          <button className="hover:text-gray-300">
+            <GlobeIcon />
+          </button>
+          <button className="hover:text-gray-300">
+            <BellIcon />
+          </button>
+          <div className="flex items-center space-x-2">
+            <UserCircleIcon />
+            <div>
+              <div>Matthew</div>
+              <div className="text-xs text-gray-300">Admin</div>
+            </div>
+            <button className="hover:text-gray-300">
+              <ChevronDownIcon />
+            </button>
+          </div>
+        </div>
+      </header>
+
+      <div className="flex">
+        {/* Sidebar */}
+        <aside className="w-16 bg-white min-h-screen p-2 shadow-md flex flex-col items-center space-y-6">
+          <button className="p-2 rounded-md text-gray-600 bg-gray-200 hover:bg-gray-300">
+            <HomeIcon />
+          </button>
+          <button className="p-2 rounded-md text-gray-600 hover:bg-gray-200">
+            <UploadIcon />
+          </button>
+          <button className="p-2 rounded-md text-gray-600 hover:bg-gray-200">
+            <DocumentIcon />
+          </button>
+          <button className="p-2 rounded-md text-gray-600 hover:bg-gray-200">
+            <UserGroupIcon />
+          </button>
+        </aside>
+
+        {/* Main Content */}
+        <main className="flex-1 p-8">
+          {/* <div className="bg-white rounded-lg shadow p-4 mb-8 max-w-md">
+            <input
+              type="text"
+              placeholder="Search"
+              className="w-full bg-transparent focus:outline-none"
+            />
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8">
+          
+            {[...Array(5)].map((_, i) => (
+              <div key={i} className="bg-white rounded-lg shadow h-40"></div>
+            ))}
+          </div> */}
+          <Outlet />
+        </main>
+      </div>
+
+      {/* Footer */}
+      <footer className="bg-gray-200 text-black-600 text-xs p-3 fixed bottom-0 w-full">
+        <div className="flex justify-between items-center">
+          <span className="ml-16">
+            © {new Date().getFullYear()} Regions Bank. NMLS 174490. 1900 5th
+            Avenue North, Birmingham, AL 35203. All Rights Reserved.
+          </span>
+          <RegionsLogo pyramidColor="#5a8a22" showLockup={false} />
+        </div>
+      </footer>
+    </div>
+  );
 };
 
 export default DashboardPage;

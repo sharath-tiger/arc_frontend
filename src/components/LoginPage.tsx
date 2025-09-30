@@ -1,11 +1,9 @@
 import React, { useState } from "react";
-// Import useNavigate for programmatic navigation
 import { useNavigate } from "react-router-dom";
 
-// SVG component for the main Regions logo (remains unchanged)
 const RegionsLogo = () => (
   <svg
-    className="w-48 mx-auto"
+    className="w-40 mx-auto"
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 242 41"
     role="img"
@@ -29,114 +27,175 @@ const RegionsLogo = () => (
   </svg>
 );
 
-// Main App Component
-const LoginPage: React.FC = () => {
-  // State to manage form inputs
+const App = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [rememberMe, setRememberMe] = useState(false);
 
-  // State for loading and error handling
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState(null);
 
-  // Hook for navigation
   const navigate = useNavigate();
 
-  // This function now handles the entire form submission process
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     setLoading(true);
     setError(null); // Clear previous errors
-    if (username == "abc@gmail.com" && password == "123") {
-      navigate("/loan-form");
-      setLoading(false);
+
+    if (username === "abc@gmail.com" && password === "123") {
+    //   navigate("/loan-form");
+    navigate("/dashboard");
       localStorage.setItem("isLogged", "true");
+    } else {
+      setError("Invalid username or password.");
     }
+    setLoading(false);
   };
 
   return (
     <>
       <style>{`
-                .regions-logo__pyramid { fill: #5A8A22; }
-                .regions-logo__lockup { fill: #565656; }
-            `}</style>
-      <div className="bg-white text-gray-800 font-sans leading-normal">
-        {/* Main container with padding and centered content */}
-        <div className="container mx-auto px-4 py-8 md:py-6">
-          <div className="max-w-md mx-auto text-center">
-            {/* Header with Logo */}
-            <header className="mb-8">
-              <RegionsLogo />
-            </header>
+     html, body {
+   margin: 0;
+   padding: 0;
+   height: 100%;
+ }
+        body {
+          font-family: 'Inter', sans-serif;
+        }
+        .regions-logo__pyramid { fill: #5A8A22; }
+        .regions-logo__lockup { fill: #565656; }
+      `}</style>
+      <div className="bg-gray-100 min-h-screen flex flex-col items-center justify-center p-4">
+        {/* Page Titles */}
+        <div className="text-center mb-6">
+          <h1 className="text-2xl font-bold text-gray-800">
+            Log In to Online Banking
+          </h1>
+          <p className="text-gray-600 mt-1">
+            Monitor your accounts, make payments, move money and more.
+          </p>
+        </div>
 
-            {/* Page Titles */}
-            <h1 className="text-4xl md:text-4xl font-light text-[#4C4C4C] mb-4">
-              ARC
-            </h1>
-            <p className="text-lg text-[#565656] mb-8">
-              Log in to Automated Refinance Calculator
-            </p>
+        {/* Login Form Card */}
+        <div className="bg-white w-full max-w-4xl rounded-lg shadow-md p-4">
+          <header className="mb-6">
+            <RegionsLogo />
+          </header>
 
-            {/* Login Form Card */}
-            <div className="bg-white rounded-2xl shadow-lg p-8 md:p-10 text-left">
-              <form onSubmit={handleSubmit}>
-                {/* Username Input Field */}
-                <div className="mb-6">
-                  <label
-                    htmlFor="username"
-                    className="block text-sm font-medium text-[#565656] mb-2"
-                  >
-                    Username
-                  </label>
-                  <input
-                    type="email"
-                    id="username"
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#5A8A22]"
-                    disabled={loading} // Disable input when loading
-                  />
-                </div>
-
-                {/* Password Input Field */}
-                <div className="mb-6">
-                  <label
-                    htmlFor="password"
-                    className="block text-sm font-medium text-[#565656] mb-2"
-                  >
-                    Password
-                  </label>
-                  <input
-                    type="password"
-                    id="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#5A8A22]"
-                    disabled={loading} // Disable input when loading
-                  />
-                </div>
-
-                {/* Display error message if there is one */}
-                {error && (
-                  <div className="mb-4 text-center text-red-600">{error}</div>
-                )}
-
-                <div>
-                  <button
-                    type="submit"
-                    className="w-full bg-[#5a8a22] text-white font-bold py-3 px-4 rounded-full hover:bg-[#4a741e] transition duration-300 disabled:bg-gray-400"
-                    disabled={loading} // Disable button when loading
-                  >
-                    {loading ? "Logging in..." : "Continue"}
-                  </button>
-                </div>
-              </form>
-            </div>
+          <div className="flex items-center justify-center space-x-2 text-xs text-gray-500 mb-8">
+            <span className="font-bold text-blue-900 text-[12px]">FDIC</span>
+            <span>FDIC - Insured - Backed by the full faith and credit of the U.S. Government</span>
           </div>
+
+          {/* Centering container for the form */}
+          <div className="max-w-sm mx-auto">
+            <form onSubmit={handleSubmit} className="space-y-4">
+              {/* Username Input Field */}
+              <div>
+                <label
+                  htmlFor="username"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  Username
+                </label>
+                <input
+                  type="email"
+                  id="username"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  placeholder="Enter Username"
+                  className="mt-1 w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#5A8A22]"
+                  disabled={loading}
+                />
+              </div>
+
+              {/* Password Input Field */}
+              <div>
+                <label
+                  htmlFor="password"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  Password
+                </label>
+                <input
+                  type="password"
+                  id="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder="Enter Password"
+                  className="mt-1 w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#5A8A22]"
+                  disabled={loading}
+                />
+              </div>
+
+              {/* Remember Me Checkbox */}
+              <div className="flex items-center">
+                <input
+                  id="remember-me"
+                  name="remember-me"
+                  type="checkbox"
+                  checked={rememberMe}
+                  onChange={(e) => setRememberMe(e.target.checked)}
+                  className="h-4 w-4 text-[#5A8A22] focus:ring-[#5A8A22] border-gray-300 rounded"
+                />
+                <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-900">
+                  Remember my username
+                </label>
+              </div>
+
+              {/* Display error message */}
+              {error && (
+                <div className="text-center text-red-600 text-sm pt-2">{error}</div>
+              )}
+
+              {/* Submit Button */}
+              <div className="pt-2">
+                <button
+                  type="submit"
+                  className="w-full bg-[#5a8a22] text-white font-bold py-3 px-4 rounded-lg hover:bg-[#4a741e] transition duration-300 disabled:opacity-50"
+                  disabled={loading}
+                >
+                  {loading ? "Logging in..." : "Login With SSO"}
+                </button>
+              </div>
+
+              <div className="text-center text-sm">
+                <a href="#" className="font-medium text-[#5A8A22] hover:underline">
+                  Forgot Username or Password?
+                </a>
+              </div>
+
+              <div className="text-center text-sm text-gray-600">
+                Don't have an Online Banking Account?{' '}
+                <a href="#" className="font-medium text-[#5A8A22] hover:underline">
+                  Enroll Now
+                </a>
+              </div>
+            </form>
+          </div>
+
+          <hr className="my-6" />
+
+          {/* Footer Section */}
+          <footer className="text-center">
+            <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 text-xs text-gray-600 mb-4">
+              <a href="#" className="hover:underline">Terms and Conditions</a>
+              <a href="#" className="hover:underline">Privacy Pledge</a>
+              <a href="#" className="hover:underline">Security</a>
+              <a href="#" className="hover:underline">Notice at Collection</a>
+              <a href="#" className="hover:underline">Online Tracking & Advertising</a>
+              <a href="#" className="hover:underline">Accessible Banking</a>
+              <a href="#" className="hover:underline">Leave Feedback</a>
+            </div>
+            <p className="text-xs text-gray-600">
+              Call <span className="font-semibold text-gray-800">1-800-REGIONS (1-800-734-4667)</span> or Visit Regions Help & Support.
+            </p>
+          </footer>
         </div>
       </div>
     </>
   );
 };
 
-export default LoginPage;
+export default App;

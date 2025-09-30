@@ -13,6 +13,7 @@ import LoginPage from "./components/LoginPage";
 import AdminSettings from "./components/AdminSettings";
 import FilterCampaign from "./components/FilterCampaign";
 import ListCampaigns from "./components/ListCampaigns";
+import DashboardPage from "./components/DashboardPage";
 
 function App() {
   return (
@@ -25,10 +26,13 @@ function App() {
           path="/filter-campaign/:campaignId"
           element={<FilterCampaign />}
         />
+        <Route path="/login" element={<LoginPage />} />
         <Route path="/results" element={<ResultsPage />} />
         <Route path="/loan-table" element={<LoanTablePage />} />
         <Route path="/loan-details/:loanId" element={<LoanDetailsPage />} />
-        <Route path="/" element={<Navigate to="/admin-settings" />} />
+        <Route path="/dashboard" element={<DashboardPage />} />
+        {/* <Route path="/" element={<Navigate to="/admin-settings" />} /> */}
+        <Route path="/" element={<Navigate to="/login" />} />
       </Routes>
     </Router>
   );

@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Outlet } from "react-router-dom";
+import { AuthContext } from "../context/AuthContext";
+import UserMenu from "./UserMenu";
 
 interface RegionsLogoProps {
   pyramidColor?: string;
@@ -190,10 +192,11 @@ const ChevronDownIcon = () => (
 );
 
 const DashboardPage: React.FC = () => {
+  const { user, role } = useContext(AuthContext);
   return (
     <div className="bg-gray-100 min-h-screen font-sans fixed inset-0">
       {/* Header */}
-      <header className="bg-[#5a8a22] text-white grid grid-cols-3 items-center p-3 shadow-md">
+      <header className="bg-[#5a8a22] text-white grid grid-cols-3 items-center p-3 shadow-md relative">
         {/* Left Section: Logo */}
         <div className="flex items-center">
           <RegionsLogo pyramidColor="#FFFFFF" lockupColor="#FFFFFF" />
@@ -214,16 +217,17 @@ const DashboardPage: React.FC = () => {
           <button className="hover:text-gray-300">
             <BellIcon />
           </button>
-          <div className="flex items-center space-x-2">
+          <UserMenu />
+          {/* <div className="flex items-center space-x-2">
             <UserCircleIcon />
             <div>
-              <div>Matthew</div>
-              <div className="text-xs text-gray-300">Admin</div>
+              <div>{user}</div>
+              <div className="text-xs text-gray-300">{role}</div>
             </div>
             <button className="hover:text-gray-300">
               <ChevronDownIcon />
             </button>
-          </div>
+          </div> */}
         </div>
       </header>
 

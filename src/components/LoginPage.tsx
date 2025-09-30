@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../context/AuthContext";
 
 const RegionsLogo = () => (
   <svg
@@ -28,6 +29,7 @@ const RegionsLogo = () => (
 );
 
 const App = () => {
+  const { setUserDetails } = useContext(AuthContext);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
@@ -42,10 +44,20 @@ const App = () => {
     setLoading(true);
     setError(null); // Clear previous errors
 
-    if (username === "abc@gmail.com" && password === "123") {
-    //   navigate("/loan-form");
-    navigate("/dashboard");
-      localStorage.setItem("isLogged", "true");
+    if (username === "mlo@regions.com" && password === "123") {
+      setUserDetails("John Doe", "MLO");
+      navigate("/dashboard/filter-loans");
+      localStorage.setItem(
+        "auth",
+        JSON.stringify({ user: "John Doe", role: "MLO" })
+      );
+    } else if (username === "analyst@regions.com" && password === "123") {
+      setUserDetails("Jane Doe", "ARC Analyst");
+      navigate("/dashboard/viable-loans");
+      localStorage.setItem(
+        "auth",
+        JSON.stringify({ user: "Jane Doe", role: "ARC Analyst" })
+      );
     } else {
       setError("Invalid username or password.");
     }
@@ -85,7 +97,10 @@ const App = () => {
 
           <div className="flex items-center justify-center space-x-2 text-xs text-gray-500 mb-8">
             <span className="font-bold text-blue-900 text-[12px]">FDIC</span>
-            <span>FDIC - Insured - Backed by the full faith and credit of the U.S. Government</span>
+            <span>
+              FDIC - Insured - Backed by the full faith and credit of the U.S.
+              Government
+            </span>
           </div>
 
           {/* Centering container for the form */}
@@ -139,14 +154,19 @@ const App = () => {
                   onChange={(e) => setRememberMe(e.target.checked)}
                   className="h-4 w-4 text-[#5A8A22] focus:ring-[#5A8A22] border-gray-300 rounded"
                 />
-                <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-900">
+                <label
+                  htmlFor="remember-me"
+                  className="ml-2 block text-sm text-gray-900"
+                >
                   Remember my username
                 </label>
               </div>
 
               {/* Display error message */}
               {error && (
-                <div className="text-center text-red-600 text-sm pt-2">{error}</div>
+                <div className="text-center text-red-600 text-sm pt-2">
+                  {error}
+                </div>
               )}
 
               {/* Submit Button */}
@@ -161,14 +181,20 @@ const App = () => {
               </div>
 
               <div className="text-center text-sm">
-                <a href="#" className="font-medium text-[#5A8A22] hover:underline">
+                <a
+                  href="#"
+                  className="font-medium text-[#5A8A22] hover:underline"
+                >
                   Forgot Username or Password?
                 </a>
               </div>
 
               <div className="text-center text-sm text-gray-600">
-                Don't have an Online Banking Account?{' '}
-                <a href="#" className="font-medium text-[#5A8A22] hover:underline">
+                Don't have an Online Banking Account?{" "}
+                <a
+                  href="#"
+                  className="font-medium text-[#5A8A22] hover:underline"
+                >
                   Enroll Now
                 </a>
               </div>
@@ -180,16 +206,34 @@ const App = () => {
           {/* Footer Section */}
           <footer className="text-center">
             <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 text-xs text-gray-600 mb-4">
-              <a href="#" className="hover:underline">Terms and Conditions</a>
-              <a href="#" className="hover:underline">Privacy Pledge</a>
-              <a href="#" className="hover:underline">Security</a>
-              <a href="#" className="hover:underline">Notice at Collection</a>
-              <a href="#" className="hover:underline">Online Tracking & Advertising</a>
-              <a href="#" className="hover:underline">Accessible Banking</a>
-              <a href="#" className="hover:underline">Leave Feedback</a>
+              <a href="#" className="hover:underline">
+                Terms and Conditions
+              </a>
+              <a href="#" className="hover:underline">
+                Privacy Pledge
+              </a>
+              <a href="#" className="hover:underline">
+                Security
+              </a>
+              <a href="#" className="hover:underline">
+                Notice at Collection
+              </a>
+              <a href="#" className="hover:underline">
+                Online Tracking & Advertising
+              </a>
+              <a href="#" className="hover:underline">
+                Accessible Banking
+              </a>
+              <a href="#" className="hover:underline">
+                Leave Feedback
+              </a>
             </div>
             <p className="text-xs text-gray-600">
-              Call <span className="font-semibold text-gray-800">1-800-REGIONS (1-800-734-4667)</span> or Visit Regions Help & Support.
+              Call{" "}
+              <span className="font-semibold text-gray-800">
+                1-800-REGIONS (1-800-734-4667)
+              </span>{" "}
+              or Visit Regions Help & Support.
             </p>
           </footer>
         </div>

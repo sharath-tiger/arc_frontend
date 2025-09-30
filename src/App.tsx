@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   BrowserRouter as Router,
   Routes,
@@ -18,8 +18,22 @@ import FilterLoans from "./components/persona/analyst/FilterLoans";
 import ViableList from "./components/persona/analyst/ViableList";
 import LoanList from "./components/persona/mlo/LoanList";
 import WorkBench from "./components/persona/mlo/WorkBench";
+import { AuthContext } from "./context/AuthContext";
 
 function App() {
+  const [isLoading, setIsLoading] = useState(true);
+  const { setUserDetails } = useContext(AuthContext);
+  useEffect(() => {
+    const userData = localStorage.getItem("auth");
+    setIsLoading(false);
+    if (userData) {
+      const _userData = JSON.parse(userData) as { user: string; role: string };
+      setUserDetails(_userData.user, _userData.role);
+    }
+  }, [setUserDetails]);
+  if (isLoading) {
+    return "loading..";
+  }
   return (
     <Router>
       <Routes>

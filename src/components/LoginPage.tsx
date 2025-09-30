@@ -46,14 +46,15 @@ const App = () => {
 
     if (username === "mlo@regions.com" && password === "123") {
       setUserDetails("John Doe", "MLO");
-      navigate("/dashboard/filter-loans");
+      navigate("/dashboard/viable-loans");
       localStorage.setItem(
         "auth",
         JSON.stringify({ user: "John Doe", role: "MLO" })
       );
     } else if (username === "analyst@regions.com" && password === "123") {
       setUserDetails("Jane Doe", "ARC Analyst");
-      navigate("/dashboard/viable-loans");
+
+      navigate("/dashboard/filter-loans");
       localStorage.setItem(
         "auth",
         JSON.stringify({ user: "Jane Doe", role: "ARC Analyst" })

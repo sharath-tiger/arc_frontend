@@ -8,6 +8,7 @@ export default function UserMenu() {
   const { user, role } = useContext(AuthContext);
   const navigate = useNavigate();
   const logoutHandler = () => {
+    localStorage.removeItem("auth");
     navigate("/");
   };
   return (

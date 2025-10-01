@@ -196,7 +196,7 @@ const DashboardPage: React.FC = () => {
           <button className="p-2 rounded-md text-gray-600 bg-gray-200 hover:bg-gray-300">
             <HomeIcon />
           </button>
-          <button className="p-2 rounded-md text-gray-600 hover:bg-gray-200">
+          {/* <button className="p-2 rounded-md text-gray-600 hover:bg-gray-200">
             <UploadIcon />
           </button>
           <button className="p-2 rounded-md text-gray-600 hover:bg-gray-200">
@@ -204,7 +204,7 @@ const DashboardPage: React.FC = () => {
           </button>
           <button className="p-2 rounded-md text-gray-600 hover:bg-gray-200">
             <UserGroupIcon />
-          </button>
+          </button> */}
         </aside>
 
         {/* Main Content */}

@@ -26,7 +26,7 @@ function FilterLoans() {
           </div>
           <div className="flex flex-col space-y-2 mb-5">
             <label htmlFor="interest-rate" className="text-gray-500">
-              Minimum Monthly Savings (bps) *
+              Minimum Monthly Savings *
             </label>
             <input
               type="text"
